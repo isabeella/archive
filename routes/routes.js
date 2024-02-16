@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const reviewerController = require('../controllers/reviewerController');
+const reviewerController = require('../controllers/articleController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', catchErrors(reviewerController.home));
+router.get('/', catchErrors(articleController.home));
 
-router.get('/contribute', catchErrors(authController.contribute));
+router.get('/contribute', catchErrors(articleController.contribute));
 router.post('/contribute',
-  reviewerController.upload,
-  reviewerController.createArticle
+  articleController.upload,
+  articleController.submit
 );
 
 router.get('/login', reviewerController.loginForm);
@@ -27,27 +28,27 @@ router.post('/register',
 
 router.get('/logout', authController.logout);
 
-router.get('/contact', catchErrors(reviewerController.contact));
+router.get('/contact', catchErrors(articleController.contact));
 
-router.get('/Sciences', reviewerController.science);
-router.get('/Mathematics', reviewerController.math);
-router.get('/Social%20Sciences', reviewerController.socialsciences);
-router.get('/Other', reviewerController.other);
-router.get('/English', reviewerController.english);
-router.get('/Engineering', reviewerController.engineering);
-router.get('/Computer%20Science', reviewerController.compsci);
-router.get('/Arts', reviewerController.art);
+router.get('/Sciences', articleController.homeSciences);
+router.get('/Mathematics', articleController.homeMathematics);
+router.get('/Social%20Sciences', articleController.homeSocialSciences);
+router.get('/Other', articleController.homeOther);
+router.get('/English', articleController.homeEnglish);
+router.get('/Engineering', articleController.homeEngineering);
+router.get('/Computer%20Science', articleController.homeCompputerScience);
+router.get('/Arts', articleController.homeArts);
 
-router.get(`/article/:id`, reviewerController.getArticle);
+router.get(`/article/:id`, articleController.getArticle);
 
-router.get('/reviewers', reviewerController.reviewers)
+router.get('/reviewers', articleController.reviewers)
 
 router.get('/reviewers/edit/:id', reviewerController.editReviewer);
 router.post('/reviewers/edit/:id', reviewerController.updateAccount);
 router.get('/reviewers/delete/:id', reviewerController.confirmDelete);
 
-router.get('/toreview', reviewerController.toreview);
-router.get('/reviewed', reviewerController.reviewed);
+router.get('/toreview', articleController.toreview);
+router.get('/reviewed', articleController.reviewed);
 
 
 //router.get('/essays', catchErrors(appController.getEssays));
