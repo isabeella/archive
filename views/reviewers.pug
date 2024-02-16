@@ -1,0 +1,8 @@
+extends layout
+
+include mixins/_reviewerCard
+
+block content
+    .reviewers
+        each reviewer in reviewers
+            +reviewerCard(reviewer)

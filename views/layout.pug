@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Document Archive Website
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/styles.css')
+  body
+    block header
+        nav.navbar.navbar-expand-lg
+          a.navbar-brand(href='/')
+            img(src="/images/WLogo.png", alt="Image Description" height="50px") 
+          a.navbar-brand(href='/') Archives
+          button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+            span.navbar-toggler-icon
+          div.collapse.navbar-collapse#navbarNav
+            ul.navbar-nav.ml-auto
+              li.nav-item
+                a.nav-link(href='/') HOME
+              li.nav-item
+                a.nav-link(href='/contribute') CONTRIBUTE
+              li.nav-item
+                a.nav-link(href='/contact') CONTACT
+                if user && user.status==4
+                  li.nav-item
+                    a.nav-link(href='/reviewers') REVIEWERS
+                  li.nav-item
+                    a.nav-link(href='/toreview') ARTICLES TO REVIEW
+                  li.nav-item
+                    a.nav-link(href='#') ACCOUNT
+                  li.nav-item
+                    a.nav-link(href='#') SETTINGS
+                  li.nav-item
+                    a.nav-link(href='/logout') LOGOUT
+                else if user && user.status==3
+                  li.nav-item
+                    a.nav-link(href='/reviewers') REVIEWERS
+                  li.nav-item
+                    a.nav-link(href='/toreview') ARTICLES TO REVIEW
+                  li.nav-item
+                    a.nav-link(href='#') ACCOUNT
+                  li.nav-item
+                    a.nav-link(href='/logout') LOGOUT
+                else if user && user.status==2
+                  li.nav-item
+                    a.nav-link(href='/reviewers') REVIEWERS
+                  li.nav-item
+                    a.nav-link(href='/toreview') ARTICLES TO REVIEW
+                  li.nav-item
+                    a.nav-link(href='#') ACCOUNT
+                  li.nav-item
+                    a.nav-link(href='/logout') LOGOUT
+                else if user 
+                  li.nav-item
+                    a.nav-link(href='#') ACCOUNT
+                  li.nav-item
+                    a.nav-link(href='/logout') LOGOUT
+                else
+                  li.nav-item
+                    a.nav-link(href='/login') LOGIN
+                
+    .content
+        block content

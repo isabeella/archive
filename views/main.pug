@@ -1,0 +1,50 @@
+extends layout
+
+include mixins/_articleCard
+
+block content
+  -var words = ['Sciences', 'Mathematics', 'Social Sciences','Other', 'English', 'Engineering', 'Computer Science', 'Arts'];
+  .filter
+    form(action="/search", method="POST")
+      h5.card-title Search
+      input.searchButton(type="text" name="query" placeholder="Search")
+      button.btn.btn-primary.searchButton(type="submit") Search
+    br
+    h5.card-title Filter
+    each word in words
+      if title && title==word
+        a.button.btn.filterButtons.pinkButton(href=`/${title}`)=title
+      else
+        a.button.btn.filterButtons(href=`/${word}`)=word
+      //input(type='checkbox' name='Sciences' value='Sciences')
+      //label(for='Sciences') Sciences
+      //br
+      //input(type='checkbox' name='Mathematics' value='Mathematics')
+      //label(for='Mathematics') Mathematics
+      //br
+      //input(type='checkbox' name='Social Sciences' value='Mathematics')
+      //label(for='Mathematics') Mathematics
+      //-var words = ['Sciences', 'Mathematics', 'Social Sciences', 'English', 'Computer Science', 'Engineering', 'Arts', 'Other'];
+          .filter
+            h5.card-title Filter
+            input(type="text" name="query" placeholder="Search")
+            br
+            br
+            each word in words
+              input(type='checkbox' name=word value=word)
+              label.checklabel(for=word)=word
+              br
+              
+              option(value = article.reviewStat selected)= article.reviewStat
+              each review in reviews
+                  if review!=article.reviewStat
+                      option(value=review)=review
+  .inner
+    each article in articles
+        +articleCard(article)
+    if articles.length==0
+        div.card-body
+            h5.card-title No articles have been uploaded for this subject
+  .about
+    h5.card-title About
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

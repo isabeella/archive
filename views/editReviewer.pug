@@ -1,0 +1,23 @@
+extends layout
+
+block content 
+  .reviewers.card-body
+    form.form(action=`/reviewers/edit/${reviewer.id}` method="POST")
+      - var numbers = ["1", "2", "3"];
+      - var digits = ["1", "2"];
+      - var words = ["Level 1 - Site Viewer", "Level 2 - Reviewer Privileges", "Level 3 - Administrative Privileges"];
+      h2 Reviewer Authentication
+      label(for="status") Reviewer Status 
+      select(name='status')
+          if user.status==4
+            option(value = reviewer.status selected)= words[reviewer.status-1]
+            each number in numbers
+                if number!=reviewer.status
+                    option(value=number)=words[number-1]
+          if user.status==3
+            option(value = reviewer.status selected)= words[reviewer.status-1]
+            each digit in digits
+                if digit!=reviewer.status
+                    option(value=digit)=words[digit.status-1]
+      br
+      input.button.btn.btn-primary(type="submit" value="Update Status →" id="submitbutton")
