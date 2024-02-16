@@ -43,7 +43,7 @@ Install the following dependencies:
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
 
-# Example installation commands
+## Example installation commands
 npm start (in your terminal)
 
 ## Usage
