@@ -1,0 +1,5 @@
+mixin reviewArticleCard(article = {})
+    div.card-body
+      h5.card-title=article.title
+      p.card-text=article.description
+      a.btn.btn-primary(href=`/review/${article._id}`) Review

@@ -1,0 +1,9 @@
+mixin articleCard(article = {})
+    div.card-body
+      h5.card-title=article.title
+      p=article.firstname + " " + article.lastname
+      - var tags = article.tagsArray
+      each tag in tags
+        button.tagSection=tag
+      p.card-text=article.description
+      a.btn.btn-primary(href=`/article/${article._id}`) Read More

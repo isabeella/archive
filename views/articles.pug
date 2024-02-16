@@ -1,0 +1,11 @@
+extends layout
+
+include mixins/_reviewArticleCard
+
+block content
+    .reviewers
+        .links
+            a.link(href='/toreview') To Review
+            a.link(href='/reviewed') Reviewed
+        each article in articles
+            +reviewArticleCard(article)

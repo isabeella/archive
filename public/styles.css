@@ -1,0 +1,178 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.navbar {
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  justify-content: left; 
+  align-items: center; 
+  background-color: white; 
+  padding: 10px; 
+  /*following makes navbar sticky*/
+  position: sticky; 
+  top: 0;
+  z-index: 100;
+}
+.navbar-brand{
+    color: #8EBA66 !important;
+    font-family: 'PT Serif', serif;
+}
+.navbar a {
+    padding: 20px 0;
+    border-bottom: 1px solid hsla(0,0%,100%,.3);
+    transition: all .4s;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8EBA66;
+/*
+  color: #47763B; 
+  padding: 10px; 
+  float: left; 
+  list-style-type: none;
+*/
+}
+.navbar a:active {
+  color: #46773c; 
+  background-color: white; 
+}
+.navbar a:hover {
+  color: #46773c;
+  background-color: white; 
+}
+.content{
+    margin: 0px auto;
+}
+.filter{
+    float: left;
+    width: 18%;
+    margin-top: 10px;
+    margin-left:2.5%;
+    border-radius: 25px;
+}
+.filterButtons {
+    margin-bottom: 10px;
+    margin-right:5px;
+    background-color: #8EBA66 !important;
+}
+.filterButtons:hover {
+    margin-bottom: 10px;
+    margin-right:5px;
+    background-color: #F3BDC6 !important;
+}
+.pinkButton {
+    margin-bottom: 10px;
+    margin-right:5px;
+    background-color: #F3BDC6 !important;
+}
+.inner{
+    float:left;
+    width:46%;
+    margin: 10px auto;
+}
+.card-body{
+    border-bottom: 2px solid #1B3D6D;
+    margin-bottom: 5px;
+}
+.about {
+    float:left;
+    margin: 10px 2.5%;
+    width: 25%;
+    background-color: #57A0D0;
+    padding:15px;
+    color: white;
+}
+.contribute {
+    float: center;
+    width:50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.documentandtitle {
+    margin-left: 20px;
+    float: left;
+    width: 50%;
+}
+.abstractandotherinformation {
+    margin-left: 20px;
+    float: right;
+    width: 45%;
+}
+.reviewers {
+    float:center;
+    width:50%;
+    margin: 10px auto;
+}
+.CRUD {
+    float: right;
+}
+.reviewerInfo {
+    float: left;
+}
+.reviewerCard {
+    height: 150px;
+    border-bottom: 2px solid #47763B;
+}
+.links {
+    display: inline-grid;
+    width: 100%;
+    grid-template-columns: auto auto;
+    float: center;
+    align-content: center;
+    justify-content: center;
+}
+.link {
+    float: center;
+    margin: 20px;
+}
+.reviewingform {
+    margin-top: 45px;
+    margin-right: 20px;
+    float: right;
+    width: 45%;
+}
+.btn {
+    background-color: #47763B;
+    color: white;
+    border: none;
+}
+.btn:hover {
+    background-color: #F3BDC6 !important;
+    color: white;
+    border: none;
+}
+.btn:active {
+    background-color: #F26F6A;
+    box-shadow: none;
+    color: white;
+    border: none;
+}
+.checklabel {
+    padding-left: 10px;
+}
+.tagSection {
+    background-color: #47763B;
+    color: white;
+    border: none;
+    margin-bottom: 10px;
+    margin-right:5px;
+    background-color: #8EBA66 !important;
+}
+a {
+    color:#F26F6A;
+}
+.searchButton {
+    width: 80%;
+}

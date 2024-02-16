@@ -1,0 +1,53 @@
+mixin articleForm()
+ script(src='/scripts/authorScript.js')
+ form.form.card-body(action="/contribute" method="POST" enctype="multipart/form-data")
+    label(for="email") Email Address
+    input(type="email" name="email")
+    br
+    br
+    label(for="firstname") Author First Name
+    input(type="text" name="firstname")
+    label(for="lastname") Last Name
+    input(type="text" name="lastname")
+    //input.button(type="button" onclick='addAuthor(' + author + ')' value="+" id="addAuthor")
+    //p(id="authorsList")
+    br
+    br
+    label(for="title") Title
+    input(type="text" name="title")
+    br
+    br
+    label(for="description") Quick Description - this will be displayed on our browse page, keep it short
+    textarea(name="description" style="width: 100%" maxlength=100)
+    br
+    br
+    label(for="abstract") Article Abstract
+    br
+    textarea(name="abstract" style="width: 100%")
+    br
+    br
+    label(for="date") Publication Date (default is the day you submit for review)
+    input(type="date" name="date")
+    br
+    br
+    label(for="file") Please upload your article here (we only accept pdfs)
+    input(type="file" name="file" accept="application/pdf")
+    br
+    br
+    label(for="subject") Subject:
+    select(name='subject')
+      option(value='Sciences') Sciences
+      option(value='Mathematics') Mathematics
+      option(value='Social Sciences') Social Sciences
+      option(value='English') English
+      option(value='Computer Science') Computer Science
+      option(value='Engineering') Engineering
+      option(value='Visual and Performing Arts') Visual and Performing Arts
+      option(value='Other') Other
+    br
+    br
+    label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
+    textarea(name="tags" style="width: 100%")
+    br
+    br
+    button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit

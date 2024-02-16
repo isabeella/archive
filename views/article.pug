@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .documentandtitle
+        br
+        h5=article.title
+        p=article.firstname + " " + article.lastname
+        //image=article.file
+        embed(src=`/uploads/${article.file || '/uploads.NOFILEFOUND.pdf'}` width="100%" height="800px")
+    .abstractandotherinformation
+        br
+        h5 Article Information
+        p="Title: " + article.title
+        p="Author: " + article.firstname + " " + article.lastname
+        p="Publication Date: " + article.date
+        - var tags = article.tagsArray
+        each tag in tags
+            button.tagSection=tag
+        br
+        br
+        h5 Abstract
+        p=article.abstract
+        br
+        h5 Description
+        p=article.description

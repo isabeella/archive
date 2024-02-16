@@ -1,0 +1,53 @@
+mixin reviewArticleForm()
+ script(src='/scripts/authorScript.js')
+ form.form.card-body(action=`/review/${article.id}` method="POST")
+    label(for="email") Email Address  
+    input(type="email" name="email" value=article.email)
+    br
+    br
+    label(for="firstname") Author First Name
+    input(type="text" name="firstname" value=article.firstname)
+    label(for="lastname") Last Name
+    input(type="text" name="lastname" value=article.lastname)
+    //input.button(type="button" onclick='addAuthor(' + author + ')' value="+" id="addAuthor")
+    //p(id="authorsList")
+    br
+    br
+    label(for="title") Title
+    input(type="text" name="title" value=article.title)
+    br
+    br
+    label(for="description") Quick Description - this will be displayed on our browse page, keep it short
+    textarea(name="description" style="width: 100%" maxlength=100)=article.description
+    br
+    br
+    label(for="abstract") Article Abstract
+    br
+    textarea(name="abstract" style="width: 100%")=article.abstract
+    br
+    -var subjects = ['Sciences', 'Mathematics', 'Social Sciences', 'English', 'Computer Science', 'Engineering', 'Arts', 'Other'];
+    br
+    label(for="subject") Subject:
+    select(name='subject')
+          option(value = article.subject selected)= article.subject
+          each subject in subjects
+            if subject!=article.subject
+                option(value=subject)=subject
+    br
+    br
+    label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
+    textarea(name="tags" style="width: 100%")=article.tags
+    br
+    br
+    label(for="reviewStat") Review Status
+    - var reviews = ["In Review", "Reviewed"]
+    select(name='reviewStat' value=article.reviewStat)
+      option(value = article.reviewStat selected)= article.reviewStat
+      each review in reviews
+          if review!=article.reviewStat
+              option(value=review)=review
+    br
+    br
+    button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
+    
+

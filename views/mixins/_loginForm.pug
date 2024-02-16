@@ -1,0 +1,11 @@
+mixin loginForm()
+  h5 Login
+  a(href='/register') This login is only for registered reviewers. If you are insterested in being a site reviewer click here
+  form.form(action="/login" method="POST")
+    label(for="email") Email Address
+    input(type="email" name="email")
+    br
+    label(for="password") Password
+    input(type="password" name="password")
+    br
+    input.button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton")
