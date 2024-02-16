@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const reviewerController = require('../controllers/reviewerController');
-const reviewerController = require('../controllers/articleController');
+const articleController = require('../controllers/articleController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(articleController.home));
@@ -36,7 +36,7 @@ router.get('/Social%20Sciences', articleController.homeSocialSciences);
 router.get('/Other', articleController.homeOther);
 router.get('/English', articleController.homeEnglish);
 router.get('/Engineering', articleController.homeEngineering);
-router.get('/Computer%20Science', articleController.homeCompputerScience);
+router.get('/Computer%20Science', articleController.homeComputerScience);
 router.get('/Arts', articleController.homeArts);
 
 router.get(`/article/:id`, articleController.getArticle);
