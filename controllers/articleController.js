@@ -5,6 +5,7 @@ const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
 const mail = require('../handlers/mail');
+const authController = require('../controllers/authController');
 
 //const multerOptions = { 
 //  storage: multer.diskStorage({
@@ -55,7 +56,12 @@ exports.home = async(req, res) => {
 };
 
 exports.contribute = (req, res) => {
-  res.render('contribute', { title: 'Contribute' });
+  if(authController.isLoggedIn){
+      res.render('contribute'); //, { title: 'Contribute' });
+  }
+  else{
+      res.redirect('/login')
+  }
 };
 
 exports.submit = async (req, res) => {
