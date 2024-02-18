@@ -7,7 +7,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(articleController.home));
 
-router.get('/contribute', catchErrors(articleController.contribute));
+router.get('/contribute', catchErrors(authController.contribute));
 router.post('/contribute',
   articleController.upload,
   articleController.submit
@@ -49,46 +49,11 @@ router.get('/reviewers/delete/:id', reviewerController.confirmDelete);
 
 router.get('/toreview', articleController.toreview);
 router.get('/reviewed', articleController.reviewed);
+router.get('/review/:id', articleController.reviewArticle);
+router.post('/review/:id', articleController.submitReview);
 
 router.post('/search', articleController.searchArticles);
-//router.get('/essays', catchErrors(appController.getEssays));
-//router.get('/upload', appController.contribute);
-//router.post('/upload', appController.upload, appController.submit);
-//
-//router.get('/essays/:id/view', appController.viewEssay)
-//router.get('/essays/:id/edit', appController.editEssay)
 
-//router.get('/stores', catchErrors(storeController.getStores));
-//router.get('/add', authController.isLoggedIn, storeController.addStore);
-//
-//router.post('/add',
-//  storeController.upload,
-//  catchErrors(storeController.resize),
-//  catchErrors(storeController.createStore)
-//);
-//
-//router.post('/add/:id',
-//  storeController.upload,
-//  catchErrors(storeController.resize),
-//  catchErrors(storeController.updateStore)
-//);
-//
-//router.get('/stores/:id/edit', catchErrors(storeController.editStore));
-//router.get('/store/:slug', catchErrors(storeController.getStoreBySlug));
-//
-//router.get('/tags', catchErrors(storeController.getStoresByTag));
-//router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
-//
-//router.get('/login', userController.loginForm);
-//router.post('/login', authController.login);
-//router.get('/register', userController.registerForm);
-//
-//router.get('/account', authController.isLoggedIn, userController.account);
-//router.post('/account', catchErrors(userController.updateAccount));
-//router.post('/account/forgot', catchErrors(authController.forgot));
-//router.get('/account/reset/:token', catchErrors(authController.reset));
-//router.post('/account/reset/:token',
-//  authController.confirmedPasswords,
-//  catchErrors(authController.update)
-//);
+router.get('/account', reviewerController.account);
+
 module.exports = router;

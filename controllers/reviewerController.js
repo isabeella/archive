@@ -56,19 +56,6 @@ exports.confirmDelete = async (req, res, next) => {
   res.redirect('/reviewers');
 };
 
-//exports.updateAccount = async (req, res) => {
-//  console.log(req.params);
-//  const updates = {
-//    status: req.body.status
-//  };
-//  const reviewer = await Reviewer.findOneAndUpdate(
-//    { _id: req.params._id },
-//    { $set: updates },
-//    { new: true, runValidators: true, context: 'query' }
-//  );
-//  res.redirect('/reviewers');
-//};
-
 exports.updateAccount = async (req, res) => {
   const updates = {
     status: req.body.status

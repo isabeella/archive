@@ -9,3 +9,6 @@ block content
             a.link(href='/reviewed') Reviewed
         each article in articles
             +reviewArticleCard(article)
+        if articles.length==0
+            div.card-body
+                h5.card-title No articles here!

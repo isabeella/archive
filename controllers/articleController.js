@@ -55,15 +55,6 @@ exports.home = async(req, res) => {
     res.render('main', {articles});
 };
 
-exports.contribute = (req, res) => {
-  if(authController.isLoggedIn){
-      res.render('contribute'); //, { title: 'Contribute' });
-  }
-  else{
-      res.redirect('/login')
-  }
-};
-
 exports.submit = async (req, res) => {
     console.log(req.file);
     console.log(req.body);
