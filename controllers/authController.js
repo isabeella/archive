@@ -12,10 +12,20 @@ exports.login = passport.authenticate('local', {
   successFlash: 'You are now logged in!'
 });
 
+//exports.logout = (req, res) => {
+//  req.logout();
+//  //req.flash('success', 'You are now logged out! 👋');
+//  res.redirect('/');
+//};
 exports.logout = (req, res) => {
-  req.logout();
-  //req.flash('success', 'You are now logged out! 👋');
-  res.redirect('/');
+  req.logout((err) => {
+    if (err) {
+      // Handle the error, maybe log it or show an error page
+      return res.status(500).send('Error during logout');
+    }
+    //req.flash('success', 'You are now logged out! 👋');
+    res.redirect('/');
+  });
 };
 
 exports.isLoggedIn = (req, res, next) => {

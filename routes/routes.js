@@ -50,7 +50,7 @@ router.get('/reviewers/delete/:id', reviewerController.confirmDelete);
 router.get('/toreview', articleController.toreview);
 router.get('/reviewed', articleController.reviewed);
 
-
+router.post('/search', articleController.searchArticles);
 //router.get('/essays', catchErrors(appController.getEssays));
 //router.get('/upload', appController.contribute);
 //router.post('/upload', appController.upload, appController.submit);
