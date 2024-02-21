@@ -59,6 +59,10 @@ const articleSchema = new mongoose.Schema({
   },
   tagsArray: {
     type: [String]   
+  },
+  reviewerNotes: {
+    type: String,
+    default: ""
   }
 });
 
