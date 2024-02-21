@@ -16,6 +16,8 @@ router.post('/contribute',
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);
 
+//router.post('/account/forgot', authController.forgot);
+
 router.get('/register', reviewerController.registerForm);
 // 1. Validate the registration data
 // 2. register the user
