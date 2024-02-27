@@ -10,15 +10,10 @@ const articleSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'Invalid Email Address'],
     required: 'Please Supply an email address'
   },
-  firstname: {
+  name: {
     type: String,
     trim: true,
     required: 'You must supply a first name'
-  },
-  lastname: {
-    type: String,
-    trim: true,
-    required: 'You must supply a last name'
   },
   title: {
     type: String,

@@ -9,7 +9,6 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const reviewerSchema = new Schema({
   email: {
     type: String,
-    unique: true,
     lowercase: true,
     trim: true,
     validate: [validator.isEmail, 'Invalid Email Address'],

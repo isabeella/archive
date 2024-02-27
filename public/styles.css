@@ -176,3 +176,12 @@ a {
 .searchButton {
     width: 80%;
 }
+.flash {
+    color:#F26F6A;
+}
+.missing {
+  border: 5px solid #F26F6A;
+}
+.missingtext{
+  color: #F26F6A;
+}

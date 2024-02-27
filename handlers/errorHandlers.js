@@ -7,6 +7,7 @@
 */
 
 exports.catchErrors = (fn) => {
+  console.log("hi");
   return function(req, res, next) {
     return fn(req, res, next).catch(next);
   };
