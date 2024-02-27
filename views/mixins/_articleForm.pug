@@ -1,53 +1,109 @@
 mixin articleForm()
  //script(src='/scripts/authorScript.js')
  form.form.card-body(action="/contribute" method="POST" enctype="multipart/form-data")
-    label(for="email") Email Address
-    input(type="email" name="email")
-    br
-    br
-    label(for="firstname") Author First Name
-    input(type="text" name="firstname")
-    label(for="lastname") Last Name
-    input(type="text" name="lastname")
-    //input.button(type="button" onclick='addAuthor(' + author + ')' value="+" id="addAuthor")
-    //p(id="authorsList")
-    br
-    br
-    label(for="title") Title
-    input(type="text" name="title")
-    br
-    br
-    label(for="description") Quick Description - this will be displayed on our browse page, keep it short
-    textarea(name="description" style="width: 100%" maxlength=100)
-    br
-    br
-    label(for="abstract") Article Abstract
-    br
-    textarea(name="abstract" style="width: 100%")
-    br
-    br
-    label(for="date") Publication Date (default is the day you submit for review)
-    input(type="date" name="date")
-    br
-    br
-    label(for="file") Please upload your article here (we only accept pdfs)
-    input(type="file" name="file" accept="application/pdf")
-    br
-    br
-    label(for="subject") Subject:
-    select(name='subject')
-      option(value='Sciences') Sciences
-      option(value='Mathematics') Mathematics
-      option(value='Social Sciences') Social Sciences
-      option(value='English') English
-      option(value='Computer Science') Computer Science
-      option(value='Engineering') Engineering
-      option(value='Visual and Performing Arts') Visual and Performing Arts
-      option(value='Other') Other
-    br
-    br
-    label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
-    textarea(name="tags" style="width: 100%")
+    if prefill
+        if prefill.title
+            label(for="title") Title
+            input(type="text" name="title" value=prefill.title)
+        else
+            labelmissingtext(for="title") Title
+            input.missing(type="text" name="title")
+        br
+        br
+        if prefill.description
+            label(for="description") Quick Description - this will be displayed on our browse page, keep it short
+            textarea(name="description" style="width: 100%" maxlength=100)=prefill.description
+        else
+            label.missingtext(for="description") Quick Description - this will be displayed on our browse page, keep it short
+            textarea.missing(name="description" style="width: 100%" maxlength=100)
+        br
+        br
+        if prefill.abstract
+            label(for="abstract") Article Abstract
+            br
+            textarea(name="abstract" style="width: 100%")=prefill.abstract
+
+        else
+            label.missingtext(for="abstract") Article Abstract
+            br
+            textarea.missing(name="abstract" style="width: 100%")=prefill.abstract
+        br
+        br
+        label(for="date") Publication Date (default is the day you submit for review)
+        input(type="date" name="date")
+        br
+        br
+        if !prefill.file
+            label.missingtext(for="file") Please upload your article here (we only accept pdfs)
+            input.missing(type="file" name="file" accept="application/pdf")
+        else
+            label(for="file") Please upload your article here (we only accept pdfs)
+            input(type="file" name="file" accept="application/pdf" value=prefill.file)
+        br
+        br
+        label(for="subject") Subject:
+        if !prefill.subject
+            select.missing(name='subject')
+              option(value='Sciences') Sciences
+              option(value='Mathematics') Mathematics
+              option(value='Social Sciences') Social Sciences
+              option(value='English') English
+              option(value='Computer Science') Computer Science
+              option(value='Engineering') Engineering
+              option(value='Visual and Performing Arts') Visual and Performing Arts
+              option(value='Other') Other
+        else
+            -var subjects = ['Sciences', 'Mathematics', 'Social Sciences', 'English', 'Computer Science', 'Engineering', 'Arts', 'Other'];
+            br
+            select(name='subject')
+                  option(value = prefill.subject selected)= prefill.subject
+                  each subject in subjects
+                    if subject!=prefill.subject
+                        option(value=subject)=subject
+        br
+        br
+        if prefill.tags
+            label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
+            textarea(name="tags" style="width: 100%")=prefill.tags
+        else
+            label.missingtext(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
+            textarea.missing(name="tags" style="width: 100%")
+    else
+        label(for="title") Title
+        input(type="text" name="title")
+        br
+        br
+        label(for="description") Quick Description - this will be displayed on our browse page, keep it short
+        textarea(name="description" style="width: 100%" maxlength=100)
+        br
+        br
+        label(for="abstract") Article Abstract
+        br
+        textarea(name="abstract" style="width: 100%")
+        br
+        br
+        label(for="date") Publication Date (default is the day you submit for review)
+        input(type="date" name="date")
+        br
+        br
+        label(for="file") Please upload your article here (we only accept pdfs)
+        input(type="file" name="file" accept="application/pdf")
+        br
+        br
+        label(for="subject") Subject:
+        select(name='subject')
+          option(value='Sciences') Sciences
+          option(value='Mathematics') Mathematics
+          option(value='Social Sciences') Social Sciences
+          option(value='English') English
+          option(value='Computer Science') Computer Science
+          option(value='Engineering') Engineering
+          option(value='Visual and Performing Arts') Visual and Performing Arts
+          option(value='Other') Other
+        br
+        br
+        label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")
+        textarea(name="tags" style="width: 100%")
     br
     br
     button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit

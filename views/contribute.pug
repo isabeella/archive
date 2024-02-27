@@ -6,4 +6,9 @@ block content
     .contribute
         h5.card-title Contribute
         p Thank you so much for your interest in contributing to our archives. Fill out the form below to submit your article/reasearch for review. We will send you updates via email as your submission goes through the review process.
+        if flashes.fail
+            p.flash=flashes.fail
         +articleForm()
+        
+        
+        

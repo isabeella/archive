@@ -57,11 +57,21 @@ exports.home = async(req, res) => {
 
 exports.submit = async (req, res) => {
     console.log(req.file);
+    
     console.log(req.body);
-    req.body.file = req.file.originalname;
-    const article = await (new Article(req.body)).save();
-    console.log(article)
-    res.render('thanku');
+    try {
+        req.body.email = req.user.email;
+        req.body.name = req.user.name;
+        req.body.file = req.file.originalname;
+        const article = await (new Article(req.body)).save();
+        console.log(article);
+        res.render('thanku');
+    }
+    catch (error) {
+        req.flash('fail', 'Please make sure to fill out all fields and upload a PDF')
+        const prefill = req.body
+        res.render('contribute', {prefill});
+    }
 };
 
 exports.getArticle = async (req, res) => {

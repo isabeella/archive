@@ -7,7 +7,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(articleController.home));
 
-router.get('/contribute', catchErrors(authController.contribute));
+router.get('/contribute', authController.contribute);
 router.post('/contribute',
   articleController.upload,
   articleController.submit
