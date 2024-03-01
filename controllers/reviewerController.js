@@ -40,8 +40,9 @@ exports.register = async (req, res, next) => {
   next(); // pass to authController.login
 };
 
-exports.account = (req, res) => {
-  res.render('account', { title: 'Edit Your Account' });
+exports.account = async (req, res) => {
+  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+  res.render('account', { reviewer });
 };
 
 exports.editReviewer = async (req, res) => {
@@ -66,4 +67,19 @@ exports.updateAccount = async (req, res) => {
     { new: true, runValidators: true, context: 'query' }
   );
   res.redirect('/reviewers');
+};
+
+exports.updateOwnAccount = async (req, res) => {
+  const updates = {
+    name: req.body.name,
+    email: req.body.email
+  };
+  console.log(updates);
+  console.log(req.body);
+  const reviewer = await Reviewer.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: updates },
+    { new: true, runValidators: true, context: 'query' }
+  );
+  res.redirect('/');
 };

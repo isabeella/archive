@@ -118,7 +118,8 @@ exports.submitReview = async(req, res) => {
     tags: req.body.tags,
     tagsArray: arrayWTags,
     reviewedBy: req.user.id,
-    reviewStat: req.body.reviewStat
+    reviewStat: req.body.reviewStat,
+    reviewerNotes: req.body.reviewerNotes
   };
   const reviewer = await Article.findOneAndUpdate(
     { _id: req.params.id },

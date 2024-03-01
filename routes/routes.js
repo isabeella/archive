@@ -56,6 +56,7 @@ router.post('/review/:id', articleController.submitReview);
 
 router.post('/search', articleController.searchArticles);
 
-router.get('/account', reviewerController.account);
+router.get('/account/:id', reviewerController.account);
+router.post('/account/:id', reviewerController.updateOwnAccount);
 
 module.exports = router;

@@ -29,8 +29,12 @@ mixin articleForm()
             textarea.missing(name="abstract" style="width: 100%")=prefill.abstract
         br
         br
-        label(for="date") Publication Date (default is the day you submit for review)
-        input(type="date" name="date")
+        if !prefill.date
+            label.missingtext(for="date") Publication Date (default is the day you submit for review)
+            input.missing(type="date" name="date")
+        else
+            label(for="date") Publication Date (default is the day you submit for review)
+            input(type="date" name="date" value=prefill.date)
         br
         br
         if !prefill.file

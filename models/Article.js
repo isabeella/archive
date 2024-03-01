@@ -68,7 +68,8 @@ articleSchema.index({
   firstname: 'text',
   lastname: 'text',
   abstract: 'text',
-  tagsArray: 'text'
+  tagsArray: 'text',
+  reviewerNotes: 'text'
 });
 
 //articleSchema.pre('save', async function(next) {
