@@ -4,8 +4,11 @@ block content
   .reviewers.card-body
     form.form(action="/register" method="POST")
       h5 Register to Review
-      label(for="name") Name 
-      input(type="text" name="name")
+      label(for="firstname") First Name 
+      input(type="text" name="firstname")
+      br
+      label(for="lastname") Last Name 
+      input(type="text" name="lastname")
       br
       label(for="email") Email 
       input(type="email" name="email")
@@ -20,4 +23,5 @@ block content
       select(name='status')
         option(value = 1)="Yes"
         option(value = 0)="No"
+      br
       input.button.btn.btn-primary(type="submit" value="Register →" id="submitbutton")

@@ -1,7 +1,7 @@
 mixin reviewerCard(reviewer = {})
     div.card-body.reviewerCard
       .reviewerInfo
-          h5.card-title=reviewer.name
+          h5.card-title=reviewer.firstname +" "+ reviewer.lastname
           //if reviewer.status == 4
             p.card-text Site Administrator
           //else if reviewer.status == 3
@@ -12,10 +12,13 @@ mixin reviewerCard(reviewer = {})
             p.card-text="Level: " + reviewer.status
             p.card-text=reviewer.email
       if user.status == 4
-        if reviewer.status <= 3 
+        if reviewer.status <= 3 && reviewer.status != 0
           .CRUD
             a(href=`reviewers/edit/${reviewer.id}`) edit
             br  
+            a(href=`reviewers/delete/${reviewer.id}`) remove
+        else if reviewer.status == 0
+          .CRUD 
             a(href=`reviewers/delete/${reviewer.id}`) remove
       else if user.status == 3
         if reviewer.status < 3 
