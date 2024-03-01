@@ -3,6 +3,10 @@ extends layout
 include mixins/_reviewerCard
 
 block content
+    if user.status == 4
+        .links
+                a.link(href='/reviewers') Reviewers
+                a.link(href='/viewers') Site Viewers
     .reviewers
         each reviewer in reviewers
             +reviewerCard(reviewer)

@@ -43,7 +43,9 @@ router.get('/Arts', articleController.homeArts);
 
 router.get(`/article/:id`, articleController.getArticle);
 
-router.get('/reviewers', articleController.reviewers)
+router.get('/reviewers', articleController.reviewers);
+
+router.get('/viewers', articleController.viewers);
 
 router.get('/reviewers/edit/:id', reviewerController.editReviewer);
 router.post('/reviewers/edit/:id', reviewerController.updateAccount);
