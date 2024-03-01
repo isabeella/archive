@@ -11,8 +11,10 @@ exports.registerForm = (req, res) => {
 };
 
 exports.validateRegister = (req, res, next) => {
-  req.sanitizeBody('name');
-  req.checkBody('name', 'You must supply a name!').notEmpty();
+  req.sanitizeBody('firstname');
+  req.checkBody('firstname', 'You must supply a firstname!').notEmpty();
+  req.sanitizeBody('lastname');
+  req.checkBody('lastname', 'You must supply a lastname!').notEmpty();
   req.checkBody('email', 'That Email is not valid!').isEmail();
   req.sanitizeBody('email').normalizeEmail({
     gmail_remove_dots: false,
@@ -34,7 +36,7 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-  const reviewer = new Reviewer({ email: req.body.email, name: req.body.name, status: req.body.status });
+  const reviewer = new Reviewer({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, status: req.body.status });
   const register = promisify(Reviewer.register, Reviewer);
   await register(reviewer, req.body.password);
   next(); // pass to authController.login

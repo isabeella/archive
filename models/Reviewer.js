@@ -14,10 +14,15 @@ const reviewerSchema = new Schema({
     validate: [validator.isEmail, 'Invalid Email Address'],
     required: 'Please Supply an email address'
   },
-  name: {
+  firstname: {
     type: String,
-    required: 'Please supply a name',
-    trim: true
+    trim: true,
+    required: 'You must supply a first name'
+  }, 
+  lastname: {
+    type: String,
+    trim: true,
+    required: 'You must supply a last name'
   },
   status: {
     type: Number,
