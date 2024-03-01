@@ -21,7 +21,7 @@ const reviewerSchema = new Schema({
   },
   status: {
     type: Number,
-    default: 1
+    default: 0
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date

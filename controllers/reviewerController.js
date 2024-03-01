@@ -34,7 +34,7 @@ exports.validateRegister = (req, res, next) => {
 };
 
 exports.register = async (req, res, next) => {
-  const reviewer = new Reviewer({ email: req.body.email, name: req.body.name });
+  const reviewer = new Reviewer({ email: req.body.email, name: req.body.name, status: req.body.status });
   const register = promisify(Reviewer.register, Reviewer);
   await register(reviewer, req.body.password);
   next(); // pass to authController.login

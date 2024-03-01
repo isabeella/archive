@@ -80,8 +80,14 @@ exports.getArticle = async (req, res) => {
     res.render('article', { article });
 }
 
-exports.reviewers = async(req, res) => {
-    const reviewers = await Reviewer.find();
+exports.reviewers = async (req, res) => {
+    const levelsToFind = [1, 2, 3, 4]; // Specify the levels you want to find
+    const reviewers = await Reviewer.find({ status: { $in: levelsToFind } });
+    res.render('reviewers', { reviewers });
+}
+
+exports.viewers = async (req, res) => {
+    const reviewers = await Reviewer.find({ status: 0 });
     res.render('reviewers', { reviewers });
 }
 

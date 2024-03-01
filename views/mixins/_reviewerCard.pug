@@ -11,18 +11,18 @@ mixin reviewerCard(reviewer = {})
           if user.status >= 3
             p.card-text="Level: " + reviewer.status
             p.card-text=reviewer.email
-          if user.status == 4
-            if reviewer.status <= 3 
-              .CRUD
-                a(href=`reviewers/edit/${reviewer.id}`) edit
-                br  
-                a(href=`reviewers/delete/${reviewer.id}`) remove
-          else if user.status == 3
-            if reviewer.status < 3 
-              .CRUD
-                a(href=`reviewers/edit/${reviewer.id}`) edit
-                br  
-                a(href=`reviewers/delete/${reviewer.id}`) remove
+      if user.status == 4
+        if reviewer.status <= 3 
+          .CRUD
+            a(href=`reviewers/edit/${reviewer.id}`) edit
+            br  
+            a(href=`reviewers/delete/${reviewer.id}`) remove
+      else if user.status == 3
+        if reviewer.status < 3 
+          .CRUD
+            a(href=`reviewers/edit/${reviewer.id}`) edit
+            br  
+            a(href=`reviewers/delete/${reviewer.id}`) remove
 
           //a.btn.btn-primary(href=`/article/${article._id}`) Read More
 

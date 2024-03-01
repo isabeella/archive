@@ -16,4 +16,8 @@ block content
       label(for="password-confirm") Confirm Password 
       input(type="password" name="password-confirm")
       br
+      label(for="status") Are you interested in reviewing submissions for the Westridge Archive?
+      select(name='status')
+        option(value = 1)="Yes"
+        option(value = 0)="No"
       input.button.btn.btn-primary(type="submit" value="Register →" id="submitbutton")
