@@ -5,12 +5,8 @@ mixin reviewArticleForm()
     input(type="email" name="email" value=article.email)
     br
     br
-    label(for="firstname") Author First Name
-    input(type="text" name="firstname" value=article.firstname)
-    label(for="lastname") Last Name
-    input(type="text" name="lastname" value=article.lastname)
-    //input.button(type="button" onclick='addAuthor(' + author + ')' value="+" id="addAuthor")
-    //p(id="authorsList")
+    label(for="name") Author Name
+    input(type="text" name="name" value=article.name)
     br
     br
     label(for="title") Title
