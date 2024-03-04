@@ -74,7 +74,8 @@ exports.updateAccount = async (req, res) => {
 exports.updateOwnAccount = async (req, res) => {
   const updates = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    status: req.body.status
   };
   console.log(updates);
   console.log(req.body);
