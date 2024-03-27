@@ -71,6 +71,7 @@ articleSchema.index({
   description: 'text',
   subject: 'text',
   firstname: 'text',
+  file: 'text',
   lastname: 'text',
   abstract: 'text',
   tagsArray: 'text',
