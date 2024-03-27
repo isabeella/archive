@@ -33,7 +33,6 @@ var storage = multer.diskStorage({
 //exports.upload = multer(multerOptions).single('photo');
 exports.upload = multer( {storage: storage}).single('file');
 
-
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize
   if (!req.file) {
@@ -56,15 +55,14 @@ exports.home = async(req, res) => {
 };
 
 exports.submit = async (req, res) => {
-    console.log(req.file);
-    
+    console.log("in submit 1" + req.file);
     console.log(req.body);
     try {
         req.body.email = req.user.email;
         req.body.name = req.user.name;
         req.body.file = req.file.originalname;
         const article = await (new Article(req.body)).save();
-        console.log(article);
+        console.log("in submit try");// + article);
         res.render('thanku');
     }
     catch (error) {
