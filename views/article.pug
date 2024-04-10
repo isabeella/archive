@@ -23,3 +23,27 @@ block content
         br
         h5 Description
         p=article.description
+        h5 Citations
+        form.form(action=`/article/${article.id}/citation` method="POST")
+            if !citationStyle
+                select(name='style')
+                  option(value="APA") APA
+                  option(value="MLA") MLA
+                  option(value="Chicago") Chicago
+                input.tagSection(type="submit" value="Generate Citation" id="submitbutton")
+            else
+                -var styles = ['APA', 'MLA', 'Chicago'];
+                br
+                select(name='style')
+                    option(value = citationStyle selected)= citationStyle
+                    each style in styles
+                        if style!=citationStyle
+                            option(value=style)=style
+                input.tagSection(type="submit" value="Generate Citation" id="submitbutton")
+                br
+                p=citation
+        
+        
+        
+        
+        

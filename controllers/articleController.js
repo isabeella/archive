@@ -193,3 +193,41 @@ exports.searchArticles = async (req, res) => {
   //res.json(articles);
   res.render('main', {articles});
 };
+
+exports.generateCitation = async (req, res) => {
+    const article = await Article.findOne({ _id: req.params.id });
+    const citationStyle = req.body.style
+    if(citationStyle == "MLA"){
+        var citation = MLA(article);
+    }
+    if(citationStyle == "APA"){
+        var citation = APA(article);
+    }
+    if(citationStyle == "Chicago"){
+        var citation = CHI(article);
+    }
+    
+    
+    res.render('article', { article, citationStyle, citation });
+    
+}
+
+function MLA(article){
+    return "MLA citation goes here"
+}
+function APA(article){
+    return "APA citation goes here"
+}
+function CHI(article){
+    return "Chicago citation goes here"
+}
+
+
+
+
+
+
+
+
+
+
