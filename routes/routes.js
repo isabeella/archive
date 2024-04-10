@@ -61,4 +61,6 @@ router.post('/search', articleController.searchArticles);
 router.get('/account/:id', reviewerController.account);
 router.post('/account/:id', reviewerController.updateOwnAccount);
 
+router.post('/article/:id/citation', articleController.generateCitation);
+
 module.exports = router;
