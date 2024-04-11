@@ -29,10 +29,11 @@ block content
                 select(name='style')
                   option(value="APA") APA
                   option(value="MLA") MLA
-                  option(value="Chicago") Chicago
+                  option(value="Chicago (Footnote)") Chicago (Footnote)
+                  option(value="Chicago (Bibliography)") Chicago (Bibliography)
                 input.tagSection(type="submit" value="Generate Citation" id="submitbutton")
             else
-                -var styles = ['APA', 'MLA', 'Chicago'];
+                -var styles = ['APA', 'MLA', 'Chicago (Bibliography)', 'Chicago (Footnote)'];
                 br
                 select(name='style')
                     option(value = citationStyle selected)= citationStyle

@@ -203,31 +203,74 @@ exports.generateCitation = async (req, res) => {
     if(citationStyle == "APA"){
         var citation = APA(article);
     }
-    if(citationStyle == "Chicago"){
-        var citation = CHI(article);
+    if(citationStyle == "Chicago (Bibliography)"){
+        var citation = BIB(article);
     }
-    
-    
-    res.render('article', { article, citationStyle, citation });
-    
+    if(citationStyle == "Chicago (Footnote)"){
+        var citation = FOO(article);
+    } 
+    res.render('article', { article, citationStyle, citation });  
 }
 
 function MLA(article){
-    return "MLA citation goes here"
+    //Author. "Title." Title of container (self contained if book), Publisher, Publication Date, URL. Date of Access (if applicable).
+    //Perahya, Dan. ""resume"." Westridge Archive, 7 June 2024, wrchive.com.
+    const author = `${article.lastname}, ${article.firstname}`;
+    const dateObj = new Date(article.date);
+    const year = dateObj.getFullYear();
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    const day = dateObj.getDate();
+    const formattedDate = `${day} ${month} ${year}`;
+    const title = `"${article.title}"`;
+    const websiteName = 'Westridge Archive';
+    const url = "wrchive.com";
+    const accessDate = new Date().toLocaleDateString('default', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const citation = `${author}. ${title}. ${websiteName}, ${formattedDate}, ${url}. Accessed ${accessDate}`;
+    return citation;
 }
 function APA(article){
-    return "APA citation goes here"
+    //Lastname, F. M. (Year, Month Date). Title of page. Site name. URL
+    const author = `${article.lastname}, ${article.firstname.charAt(0)}.`;
+    const dateObj = new Date(article.date);
+    const year = dateObj.getFullYear();
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    const day = dateObj.getDate();
+    const formattedDate = `(${year}, ${month} ${day})`;
+    const title = `"${article.title}"`;
+    const websiteName = 'Westridge Archive';
+    const url = "wrchive.com";
+
+    const citation = `${author} ${formattedDate}. ${title}. ${websiteName}. Retrieved from ${url}`;
+    return citation;
 }
-function CHI(article){
-    return "Chicago citation goes here"
+function BIB(article){
+    //Lastname, Firstname. “Title of Web Page.” Name of Website. Publishing organization, publication or revision date if available. Access date if no other date is available. URL .
+    const author = `${article.lastname}, ${article.firstname}`;
+    const dateObj = new Date(article.date);
+    const year = dateObj.getFullYear();
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    const day = dateObj.getDate();
+    const formattedDate = `${day} ${month} ${year}`;
+    const title = `"${article.title}."`;
+    const websiteName = 'Westridge Archive';
+    const url = "wrchive.com";
+
+    const citation = `${author}. ${title} ${websiteName}. Last modified ${formattedDate}. ${url}.`;
+    return citation;
 }
-
-
-
-
-
-
-
-
-
-
+function FOO(article){
+    //1. Firstname Lastname, “Title of Web Page,” Name of Website, publication or revision date if available, access date if no other date is available, URL.
+    const author = `${article.firstname} ${article.lastname}`;
+    const dateObj = new Date(article.date);
+    const year = dateObj.getFullYear();
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    const day = dateObj.getDate();
+    const formattedDate = `${day} ${month} ${year}`;
+    const title = `"${article.title},"`;
+    const websiteName = 'Westridge Archive';
+    const url = "wrchive.com";
+    
+    const citation = `1. ${author}, ${title} ${websiteName}, (${formattedDate}), ${url}`;
+    return citation;
+}
