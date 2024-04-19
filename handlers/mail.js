@@ -22,13 +22,34 @@ const generateHTML = (filename, options = {}) => {
 exports.send = async (options) => {
   const html = generateHTML(options.filename, options);
   const text = htmlToText.convert(html);
-
+  if (options.message){
+      const mailOptions = {
+        from: `Westridge Archive <noreply-archive@westridge.org>`,
+        to: options.user,
+        subject: options.subject,
+        html,
+        text,
+        message: options.message,
+        status: options.status
+      };
+        
+  }
+  else {
+      const mailOptions = {
+        from: `Westridge Archive <noreply-archive@westridge.org>`,
+        to: options.user,
+        subject: options.subject,
+        html,
+        text
+      };
+  }
   const mailOptions = {
     from: `Westridge Archive <noreply-archive@westridge.org>`,
-    to: options.user.email,
+    to: options.user,
     subject: options.subject,
     html,
-    text
+    text,
+    
   };
   const sendMail = promisify(transport.sendMail, transport);
   return sendMail(mailOptions);

@@ -114,11 +114,20 @@ exports.submitReview = async(req, res) => {
     reviewStat: req.body.reviewStat,
     reviewerNotes: req.body.reviewerNotes
   };
+  var message = updates.reviewerNotes;
+  var status = updates.reviewStat;
   const reviewer = await Article.findOneAndUpdate(
     { _id: req.params.id },
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
+  mail.send({
+    user: updates.email,
+    filename: 'review-update',
+    subject: 'UPDATE: Westridge Archive Submission',
+    message,
+    status
+  });
   res.redirect('/');
 }
 
