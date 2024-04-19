@@ -53,6 +53,7 @@ router.get('/reviewers/delete/:id', reviewerController.confirmDelete);
 
 router.get('/toreview', articleController.toreview);
 router.get('/reviewed', articleController.reviewed);
+
 router.get('/review/:id', articleController.reviewArticle);
 router.post('/review/:id', articleController.submitReview);
 
