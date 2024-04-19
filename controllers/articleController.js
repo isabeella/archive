@@ -7,22 +7,6 @@ const uuid = require('uuid');
 const mail = require('../handlers/mail');
 const authController = require('../controllers/authController');
 
-//const multerOptions = { 
-//  storage: multer.diskStorage({
-//    destination: './public/uploads',
-//    filename: function(req, file, cb){
-//        cb(null, file.originalname)
-//    },
-//  fileFilter(req, file, next) {
-//    const isPhoto = file.mimetype.startsWith('image/');
-//    if(isPhoto) {
-//      next(null, true);
-//    } else {
-//      next({ message: 'That filetype isn\'t allowed!' }, false);
-//    }
-//  }
-//})};
-
 var storage = multer.diskStorage({
     destination: './public/uploads',
     filename: function(req, file, cb){
@@ -30,7 +14,6 @@ var storage = multer.diskStorage({
     }
 });
 
-//exports.upload = multer(multerOptions).single('photo');
 exports.upload = multer( {storage: storage}).single('file');
 
 exports.resize = async (req, res, next) => {
@@ -55,14 +38,22 @@ exports.home = async(req, res) => {
 };
 
 exports.submit = async (req, res) => {
-    console.log("in submit 1" + req.file);
-    console.log(req.body);
+    console.log("in submit 1" + req.body.filename);
+    console.log(req.body.file);
     try {
         req.body.email = req.user.email;
-        req.body.name = req.user.name;
+        req.body.firstname = req.user.firstname;
+        req.body.lastname = req.user.lastname;
         req.body.file = req.file.originalname;
         const article = await (new Article(req.body)).save();
         console.log("in submit try");// + article);
+        
+        // 1. See if a user with that email exists
+        const user = await Reviewer.findOne({ email: req.body.email });
+        if (!user) {
+            req.flash('error', 'No account with that email exists.');
+            return res.redirect('/login');
+        }
         res.render('thanku');
     }
     catch (error) {
