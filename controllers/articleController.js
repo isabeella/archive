@@ -47,20 +47,18 @@ exports.submit = async (req, res) => {
         req.body.file = req.file.originalname;
         const article = await (new Article(req.body)).save();
         console.log("in submit try");// + article);
-        
-        // 1. See if a user with that email exists
-        const user = await Reviewer.findOne({ email: req.body.email });
-        if (!user) {
-            req.flash('error', 'No account with that email exists.');
-            return res.redirect('/login');
-        }
-        res.render('thanku');
     }
     catch (error) {
         req.flash('fail', 'Please make sure to fill out all fields and upload a PDF')
         const prefill = req.body
         res.render('contribute', {prefill});
     }
+    mail.send({
+        user: req.user,
+        filename: 'new-contribution',
+        subject: 'Thanks!'
+    });
+    res.render('thanku');
 };
 
 exports.getArticle = async (req, res) => {
