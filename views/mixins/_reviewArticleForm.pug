@@ -2,11 +2,11 @@ mixin reviewArticleForm()
  script(src='/scripts/authorScript.js')
  form.form.card-body(action=`/review/${article.id}` method="POST")
     label(for="email") Email Address  
-    input(type="email" name="email" value=article.email)
+    input(type="email" name="email" value=article.email readonly)
     br
     br
     label(for="name") Author Name
-    input(type="text" name="name" value=article.name)
+    input(type="text" name="name" value=article.firstname+" "+article.lastname readonly)
     br
     br
     label(for="title") Title
@@ -46,6 +46,15 @@ mixin reviewArticleForm()
     br
     label(for="reviewerNotes") Reviewer, put any notes you have on this submission here. These notes will be seen by the contributer and your fellow reviewers.
     textarea(name="reviewerNotes" style="width: 100%")=article.reviewerNotes
+    br
+    br
+    - var boolOptions = ["true", "false"]
+    label(for="edit") Allow edits:
+    select(name="edit")
+          option(value = article.edit selected)= article.edit
+          each boolOption in boolOptions
+            if boolOption != article.edit
+                option(value = boolOption)= boolOption
     br
     br
     button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit

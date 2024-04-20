@@ -52,10 +52,14 @@ router.post('/reviewers/edit/:id', reviewerController.updateAccount);
 router.get('/reviewers/delete/:id', reviewerController.confirmDelete);
 
 router.get('/toreview', articleController.toreview);
+router.get('/minetoreview', articleController.minetoreview);
 router.get('/reviewed', articleController.reviewed);
 
 router.get('/review/:id', articleController.reviewArticle);
 router.post('/review/:id', articleController.submitReview);
+
+router.get('/edit/:id', articleController.editArticle);
+router.post('/edit/:id', articleController.submitEdit);
 
 router.post('/search', articleController.searchArticles);
 
