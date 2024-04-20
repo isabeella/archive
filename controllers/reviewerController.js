@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Reviewer = mongoose.model('Reviewer');
+const Article = mongoose.model('Article');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
@@ -44,7 +45,8 @@ exports.register = async (req, res, next) => {
 
 exports.account = async (req, res) => {
   const reviewer = await Reviewer.findOne({ _id: req.params.id });
-  res.render('account', { reviewer });
+  const articles = await Article.find({ email: reviewer.email });
+  res.render('account', { reviewer, articles });
 };
 
 exports.editReviewer = async (req, res) => {

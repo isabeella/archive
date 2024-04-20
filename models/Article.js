@@ -63,6 +63,14 @@ const articleSchema = new mongoose.Schema({
   reviewerNotes: {
     type: String,
     default: ""
+  },
+  edit: {
+    type: String,
+    default: "false"
+  },
+  reviewer: {
+    type: String,
+    default: ""
   }
 });
 

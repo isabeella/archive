@@ -45,6 +45,7 @@ exports.submit = async (req, res) => {
         req.body.firstname = req.user.firstname;
         req.body.lastname = req.user.lastname;
         req.body.file = req.file.originalname;
+        req.body.edit = "false"
         const article = await (new Article(req.body)).save();
         console.log("in submit try");// + article);
     }
@@ -54,7 +55,7 @@ exports.submit = async (req, res) => {
         res.render('contribute', {prefill});
     }
     mail.send({
-        user: req.user,
+        user: req.user.email,
         filename: 'new-contribution',
         subject: 'Thanks!'
     });
@@ -83,7 +84,12 @@ exports.contact = async(req, res) => {
 }
 
 exports.toreview = async(req, res) => {
-    const articles = await Article.find({ reviewStat: "In Review" });
+    const articles = await Article.find({ reviewStat: "In Review", reviewer: "" });
+    res.render('articles', { articles });
+}
+
+exports.minetoreview = async(req, res) => {
+    const articles = await Article.find({ reviewStat: "In Review", reviewer: req.user.email });
     res.render('articles', { articles });
 }
 
@@ -94,6 +100,8 @@ exports.reviewed = async(req, res) => {
 
 exports.reviewArticle = async(req, res) => {
     const article = await Article.findOne({ _id: req.params.id });
+    const levelsToFind = [2, 3, 4]; // Specify the levels you want to find
+    const reviewers = await Reviewer.find({ status: { $in: levelsToFind } });
     res.render('reviewing', { article });
 }
 
@@ -110,9 +118,10 @@ exports.submitReview = async(req, res) => {
     subject: req.body.subject,
     tags: req.body.tags,
     tagsArray: arrayWTags,
-    reviewedBy: req.user.id,
+    reviewer: req.user.email,
     reviewStat: req.body.reviewStat,
-    reviewerNotes: req.body.reviewerNotes
+    reviewerNotes: req.body.reviewerNotes,
+    edit: req.body.edit
   };
   var message = updates.reviewerNotes;
   var status = updates.reviewStat;
@@ -121,7 +130,7 @@ exports.submitReview = async(req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
-  mail.send({
+  mail.sendContributionUpdate({
     user: updates.email,
     filename: 'review-update',
     subject: 'UPDATE: Westridge Archive Submission',
@@ -131,6 +140,40 @@ exports.submitReview = async(req, res) => {
   res.redirect('/');
 }
 
+exports.editArticle = async(req, res) => {
+    const article = await Article.findOne({ _id: req.params.id });
+    res.render('editing', { article });
+}
+
+exports.submitEdit = async(req, res) => {
+  var toSplit = req.body.tags;
+  var arrayWTags = toSplit.split(", ");
+  const updates = {
+    email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    title: req.body.title,
+    description: req.body.description,
+    abstract: req.body.abstract,
+    subject: req.body.subject,
+    tags: req.body.tags,
+    tagsArray: arrayWTags,
+    edit: "false"
+  };
+  const article = await Article.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: updates },
+    { new: true, runValidators: true, context: 'query' }
+  );
+  console.log(article);
+  mail.sendEditUpdate({
+    user: article.reviewer,
+    filename: 'edit-update',
+    subject: 'UPDATE: Contributor Edits',
+    article
+  });
+  res.redirect('/');
+}
 
 exports.homeSciences = async(req, res) => {
     const articles = await Article.find({ reviewStat: "Reviewed", subject: "Sciences"});

@@ -128,7 +128,7 @@ h5 {
 .links {
     display: inline-grid;
     width: 100%;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     float: center;
     align-content: center;
     justify-content: center;

@@ -6,7 +6,8 @@ block content
     .reviewers
         .links
             a.link(href='/toreview') To Review
-            a.link(href='/reviewed') Reviewed
+            a.link(href='/minetoreview') My Assignments
+            a.link(href='/reviewed') Published
         each article in articles
             +reviewArticleCard(article)
         if articles.length==0
