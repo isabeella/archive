@@ -1,0 +1,10 @@
+extends layout
+
+include mixins/_editArticleForm
+
+block content
+    .documentandtitle
+        embed(src=`/uploads/${article.file}` || `/uploads/NOFILEFOUND.pdf` width="100%" height="800px")
+    .reviewingform
+        h5 Reviewing
+        +editArticleForm(article)

@@ -1,0 +1,38 @@
+extends layout
+include mixins/_articleCard
+include mixins/_reviewArticleCard
+
+block content
+    .reviewers.card-body
+        h5 Account
+        form.form(action="/account" method="POST")
+          label(for="firstname") First Name 
+          input(type="text" name="firstname" value=user.firstname)
+          br
+          label(for="lastname") Last Name 
+          input(type="text" name="lastname" value=user.lastname)
+          br
+          label(for="email") Email 
+          input(type="email" name="email" value=user.email)
+        //          br
+        //          label(for="password") Password 
+        //          input(type="password" name="password")
+        //          br
+        //          label(for="password-confirm") Confirm Password 
+        //          input(type="password" name="password-confirm")
+        //          br
+        //          label(for="status") Are you interested in reviewing submissions for the Westridge Archive?
+        //          select(name='status')
+        //            option(value = 1)="Yes"
+        //            option(value = 0)="No"
+        input.button.btn.btn-primary(type="submit" value="Update" id="submitbutton")
+        
+        br
+        br
+        if articles.length > 0
+            h5 My Articles
+            each article in articles
+                if article.edit == "true" 
+                    +reviewArticleCard(article)
+                else
+                    +articleCard(article)
