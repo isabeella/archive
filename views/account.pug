@@ -31,6 +31,9 @@ block content
         br
         if articles.length > 0
             h5 My Articles
+            .links
+                a.link(href=`/unpublished/${user._id}`) Unpublished
+                a.link(href=`/published/${user._id}`) Published
             each article in articles
                 if article.edit == "true" 
                     +reviewArticleCard(article)
