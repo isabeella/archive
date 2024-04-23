@@ -5,7 +5,8 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Document Archive Website
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/styles.css')
+    link.styles(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css", integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK", crossorigin="anonymous")
+    link(rel='stylesheet', href=`/styles.css` id='mainStylesheet')
   body
     block header
         nav.navbar.navbar-expand-lg
@@ -62,3 +63,31 @@ html
                 
     .content
         block content
+    button.darkbutton
+      img(src=`/images/darkbutton.png`, alt="Westridge", height="50px" id="modeButton")
+    script.
+      var stylesheetArray = ['/styles.css', '/dmstyles.css'];
+      var buttonsArray = ['/images/darkbutton.png', '/images/lightbutton.png']
+      var stylesheet = stylesheetArray[0];
+      var whichButton = buttonsArray[0];
+
+      // Function to toggle the stylesheet
+      function toggleStylesheet() {
+        console.log("toggle view");
+        if (stylesheet === stylesheetArray[0]) {
+          stylesheet = stylesheetArray[1];
+          whichButton = buttonsArray[1];
+          console.log(stylesheet);
+        } else if (stylesheet === stylesheetArray[1]) {
+          stylesheet = stylesheetArray[0];
+          whichButton = buttonsArray[0];
+          console.log(stylesheet);
+        }
+        // Update the stylesheet link
+        document.querySelector('#mainStylesheet').href = stylesheet;
+        document.querySelector('#modeButton').src = whichButton;
+      }
+
+      // Bind the click event to the button
+      document.querySelector('.darkbutton').addEventListener('click', toggleStylesheet);
+
