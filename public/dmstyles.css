@@ -193,7 +193,7 @@ input, textarea {
 .darkbutton {
     position: fixed;
     bottom: 0;
-    left: 0;
+    right: 0;
     border: none; /* Remove default button border */
     outline: none; /* Remove outline on focus */
     background-color: transparent; /* Remove default button background */
@@ -202,4 +202,42 @@ input, textarea {
 }
 .darkbutton:focus, .darkbutton:active {
     outline: none; /* Remove outline on active state */
+}
+/* Styling the checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Styling the checkbox when checked */
+input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+/* Styling the checkmark inside the checkbox */
+input[type="checkbox"]::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  position: relative;
+  top: -3px;
+  left: 5px;
+  visibility: hidden;
+}
+
+/* Show the checkmark when checkbox is checked */
+input[type="checkbox"]:checked::after {
+  visibility: visible;
 }
