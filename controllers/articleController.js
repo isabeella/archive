@@ -108,6 +108,12 @@ exports.reviewArticle = async(req, res) => {
 exports.submitReview = async(req, res) => {
   var toSplit = req.body.tags;
   var arrayWTags = toSplit.split(", ");
+  if(req.body.edit && req.body.reviewStat!="Reviewed"){
+    var editStatus = "true";  
+  }
+  else{
+    var editStatus = "false";
+  }
   const updates = {
     email: req.body.email,
     firstname: req.body.firstname,
@@ -120,8 +126,8 @@ exports.submitReview = async(req, res) => {
     tagsArray: arrayWTags,
     reviewer: req.user.email,
     reviewStat: req.body.reviewStat,
-    reviewerNotes: req.body.reviewerNotes,
-    edit: req.body.edit
+    reviewerNotes: req.body.reviewerNotes, 
+    edit: editStatus
   };
   var message = updates.reviewerNotes;
   var status = updates.reviewStat;
@@ -208,6 +214,10 @@ exports.homeOther = async(req, res) => {
     res.render('main', {title: "Other", articles});
 };
 
+exports.deleteArticle = async (req, res) => {
+    const article = await Article.findOneAndDelete({ _id: req.params.id });
+    res.redirect('/toreview');
+}
 
 exports.searchArticles = async (req, res) => {
   const searchTerm = req.body.query;

@@ -64,12 +64,14 @@ html
     .content
         block content
     button.darkbutton
-      img(src=`/images/darkbutton.png`, alt="Westridge", height="50px" id="modeButton")
+      img(src=`/images/darkbutton.png`, alt="Westridge", height="50px", id="modeButton")
     script.
+      // Load initial mode from local storage or default to dark mode
+      var mode = localStorage.getItem('mode') || 'dark';
       var stylesheetArray = ['/styles.css', '/dmstyles.css'];
-      var buttonsArray = ['/images/darkbutton.png', '/images/lightbutton.png']
-      var stylesheet = stylesheetArray[0];
-      var whichButton = buttonsArray[0];
+      var buttonsArray = ['/images/darkbutton.png', '/images/lightbutton.png'];
+      var stylesheet = mode === 'dark' ? stylesheetArray[0] : stylesheetArray[1];
+      var whichButton = mode === 'dark' ? buttonsArray[0] : buttonsArray[1];
 
       // Function to toggle the stylesheet
       function toggleStylesheet() {
@@ -86,8 +88,9 @@ html
         // Update the stylesheet link
         document.querySelector('#mainStylesheet').href = stylesheet;
         document.querySelector('#modeButton').src = whichButton;
+        // Store mode in local storage
+        localStorage.setItem('mode', mode);
       }
 
       // Bind the click event to the button
       document.querySelector('.darkbutton').addEventListener('click', toggleStylesheet);
-

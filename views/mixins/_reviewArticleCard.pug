@@ -2,8 +2,20 @@ mixin reviewArticleCard(article = {})
     div.card-body
       h5.card-title=article.title
       p.card-text=article.description
-      if user.email == article.email && article.edit=="true"
-        a.btn.btn-primary(href=`/edit/${article._id}`) Edit
-      else if article.edit!="true" && user.email!=article.email
-        a.btn.btn-primary(href=`/review/${article._id}`) Review
-      else
+      if article.reviewStat!="Reviewed"
+          if user.email == article.email && article.edit=="true"
+            a.btn.btn-primary(href=`/edit/${article._id}`) Edit
+          else if article.edit!="true" && user.email!=article.email
+            a.btn.btn-primary(href=`/review/${article._id}`) Review
+          else
+      else if article.reviewStat=="Reviewed"
+          if user.status == 4
+            a.btn.btn-primary(href=`/review/${article.id}`) Review
+            .CRUD
+              a(href=`/delete/${article.id}`) remove
+          else if user.email != article.email && user.status < 4
+            a.btn.btn-primary(href=`/review/${article.id}`) Review
+            .CRUD
+              a(href=`/delete/${article.id}`) remove
+          else
+          

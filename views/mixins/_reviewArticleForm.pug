@@ -48,13 +48,8 @@ mixin reviewArticleForm()
     textarea(name="reviewerNotes" style="width: 100%")=article.reviewerNotes
     br
     br
-    - var boolOptions = ["true", "false"]
-    label(for="edit") Allow edits:
-    select(name="edit")
-          option(value = article.edit selected)= article.edit
-          each boolOption in boolOptions
-            if boolOption != article.edit
-                option(value = boolOption)= boolOption
+    label(for="edit")="Allow edits:___"
+    input(type="checkbox", name="edit")
     br
     br
     button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
