@@ -5,10 +5,6 @@ mixin reviewArticleForm()
     input(type="email" name="email" value=article.email readonly)
     br
     br
-    label(for="name") Author Name
-    input(type="text" name="name" value=article.firstname+" "+article.lastname readonly)
-    br
-    br
     label(for="title") Title
     input(type="text" name="title" value=article.title)
     br
@@ -35,6 +31,14 @@ mixin reviewArticleForm()
     textarea(name="tags" style="width: 100%")=article.tags
     br
     br
+    label(for="reviewerNotes") Reviewer, put any notes you have on this submission here. These notes will be seen by the contributer and your fellow reviewers.
+    textarea(name="reviewerNotes" style="width: 100%")=article.reviewerNotes
+    br
+    br
+    label(for="edit")="Allow edits:___"
+    input(type="checkbox", name="edit")
+    br
+    br
     label(for="reviewStat") Review Status
     - var reviews = ["In Review", "Reviewed"]
     select(name='reviewStat' value=article.reviewStat)
@@ -42,14 +46,6 @@ mixin reviewArticleForm()
       each review in reviews
           if review!=article.reviewStat
               option(value=review)=review
-    br
-    br
-    label(for="reviewerNotes") Reviewer, put any notes you have on this submission here. These notes will be seen by the contributer and your fellow reviewers.
-    textarea(name="reviewerNotes" style="width: 100%")=article.reviewerNotes
-    br
-    br
-    label(for="edit")="Allow edits:___"
-    input(type="checkbox", name="edit")
     br
     br
     button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit

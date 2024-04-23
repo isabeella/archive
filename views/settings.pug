@@ -1,0 +1,19 @@
+extends layout
+
+block content 
+    .reviewers.card-body
+        form.form.card-body(action=`/settings` method="POST")
+            h5 Settings
+            p Which emails would you like sent?
+            input(type="checkbox", name="edit")
+            label(for="edit")="-Allow edits"
+            br
+            input(type="checkbox", name="edit")
+            label(for="edit")="-Allow edits"
+            br
+            input(type="checkbox", name="edit")
+            label(for="edit")="-Allow edits"
+            br
+            input(type="checkbox", name="edit")
+            label(for="edit")="-Allow edits"
+            
