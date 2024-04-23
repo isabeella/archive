@@ -67,30 +67,41 @@ html
       img(src=`/images/darkbutton.png`, alt="Westridge", height="50px", id="modeButton")
     script.
       // Load initial mode from local storage or default to dark mode
-      var mode = localStorage.getItem('mode') || 'dark';
       var stylesheetArray = ['/styles.css', '/dmstyles.css'];
       var buttonsArray = ['/images/darkbutton.png', '/images/lightbutton.png'];
-      var stylesheet = mode === 'dark' ? stylesheetArray[0] : stylesheetArray[1];
-      var whichButton = mode === 'dark' ? buttonsArray[0] : buttonsArray[1];
-
+      var stylesheet = stylesheetArray[0];
+      var whichButton = buttonsArray[0];
       // Function to toggle the stylesheet
       function toggleStylesheet() {
         console.log("toggle view");
         if (stylesheet === stylesheetArray[0]) {
           stylesheet = stylesheetArray[1];
           whichButton = buttonsArray[1];
-          console.log(stylesheet);
+          document.cookie = 'mode=dark';
         } else if (stylesheet === stylesheetArray[1]) {
           stylesheet = stylesheetArray[0];
           whichButton = buttonsArray[0];
-          console.log(stylesheet);
+          document.cookie = 'mode=light';
         }
         // Update the stylesheet link
         document.querySelector('#mainStylesheet').href = stylesheet;
         document.querySelector('#modeButton').src = whichButton;
-        // Store mode in local storage
-        localStorage.setItem('mode', mode);
       }
-
+      function loadMode(){
+        if (document.cookie.length > 0) {
+            var mode = document.cookie.match(/mode=(dark|light)/)[1];
+            
+            if (mode=="light") {
+              stylesheet = stylesheetArray[0];
+              whichButton = buttonsArray[0];
+            } else if (mode=="dark") {
+              stylesheet = stylesheetArray[1];
+              whichButton = buttonsArray[1];
+            }
+        }
+        document.querySelector('#mainStylesheet').href = stylesheet;
+        document.querySelector('#modeButton').src = whichButton;
+      }
       // Bind the click event to the button
       document.querySelector('.darkbutton').addEventListener('click', toggleStylesheet);
+      document.querySelector('#mainStylesheet').addEventListener('load', loadMode);
