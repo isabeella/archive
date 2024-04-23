@@ -13,6 +13,8 @@ router.post('/contribute',
   articleController.submit
 );
 
+router.get('/settings', authController.settings);
+
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);
 

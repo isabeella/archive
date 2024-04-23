@@ -113,3 +113,7 @@ exports.contribute = (req, res) => {
     res.render('login', { title: 'Login'});
   }
 };
+
+exports.settings = async(req, res) => {
+    res.render('settings');
+}
