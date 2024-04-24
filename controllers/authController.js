@@ -116,7 +116,48 @@ exports.settings = async(req, res) => {
 }
 
 exports.setEmailPrefs = async(req, res) => {
+    if(req.body.pref1 == "on"){
+        var onePref = true;
+    }
+    else{
+        var onePref = false;
+    }
+
+    if(req.body.pref2 == "on"){
+        var twoPref = true;
+    }
+    else{
+        var twoPref = false;
+    }
+
+    if(req.body.pref3 == "on"){
+        var threePref = true;
+    }
+    else{
+        var threePref = false;
+    }
+
+    if(req.body.pref4 == "on"){
+        var fourPref = true;
+    }
+    else{
+        var fourPref = false;
+    }
     
+    var updates = {
+        pref1: onePref,
+        pref2: twoPref,
+        pref3: threePref,
+        pref4: fourPref
+    }
+            
+    const settings = await Preference.findOneAndUpdate(
+    { _id: "66292e6d6a41a0d00438383f" },
+    { $set: updates },
+    { new: true, runValidators: true, context: 'query' }
+  );
+  const preferences = await Preference.findOne({ _id: "66292e6d6a41a0d00438383f"});
+  res.render('settings', {preferences});
 }
 
 exports.sendEmailBlast = async(req, res) => {
