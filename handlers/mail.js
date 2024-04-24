@@ -64,3 +64,18 @@ exports.sendEditUpdate = async (options) => {
   const sendMail = promisify(transport.sendMail, transport);
   return sendMail(mailOptions);
 };
+
+exports.sendBlast = async (options) => {
+  const html = generateHTML(options.filename, options);
+  const text = htmlToText.convert(html);
+  const mailOptions = {
+    from: `Westridge Archive <noreply-archive@westridge.org>`,
+    bcc: options.user,
+    subject: options.subject,
+    html,
+    text,
+    message: options.message
+  };
+  const sendMail = promisify(transport.sendMail, transport);
+  return sendMail(mailOptions);
+};

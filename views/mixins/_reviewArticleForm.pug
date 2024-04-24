@@ -24,7 +24,7 @@ mixin reviewArticleForm()
           option(value = article.subject selected)= article.subject
           each subject in subjects
             if subject!=article.subject
-                option(value=subject)=subject
+                option()=subject
     br
     br
     label(for="tags") Please enter some comma seperated tags (ex. "Nuclear Physics, US History")

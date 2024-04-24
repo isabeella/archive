@@ -189,6 +189,9 @@ a {
 input, textarea {
   background-color: black;
   color: white;
+  border-width: 1px;
+  border-color: white;
+  border-style: solid;
 }
 .darkbutton {
     position: fixed;
@@ -240,4 +243,15 @@ input[type="checkbox"]::after {
 /* Show the checkmark when checkbox is checked */
 input[type="checkbox"]:checked::after {
   visibility: visible;
+}
+.allGroups {
+    display: inline-grid;
+    width: 100%;
+    grid-template-columns: auto auto auto auto auto auto;
+    float: left;
+}
+.groupLevel{
+    display: inline-grid;
+    width: 75%;
+    grid-template-columns: auto auto;
 }

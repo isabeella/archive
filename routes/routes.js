@@ -14,6 +14,8 @@ router.post('/contribute',
 );
 
 router.get('/settings', authController.settings);
+router.post('/settings/emailprefs', authController.setEmailPrefs);
+router.post('/settings/emailblast', authController.sendEmailBlast);
 
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);

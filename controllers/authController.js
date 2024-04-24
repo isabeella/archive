@@ -2,6 +2,7 @@ const passport = require('passport');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Reviewer = mongoose.model('Reviewer');
+const Preference = mongoose.model('Preference');
 const promisify = require('es6-promisify');
 const mail = require('../handlers/mail');
 
@@ -12,11 +13,6 @@ exports.login = passport.authenticate('local', {
   successFlash: 'You are now logged in!'
 });
 
-//exports.logout = (req, res) => {
-//  req.logout();
-//  //req.flash('success', 'You are now logged out! 👋');
-//  res.redirect('/');
-//};
 exports.logout = (req, res) => {
   req.logout((err) => {
     if (err) {
@@ -115,5 +111,54 @@ exports.contribute = (req, res) => {
 };
 
 exports.settings = async(req, res) => {
+    const preferences = await Preference.findOne({ _id: "66292e6d6a41a0d00438383f"});
+    res.render('settings', {preferences});
+}
+
+exports.setEmailPrefs = async(req, res) => {
+    
+}
+
+exports.sendEmailBlast = async(req, res) => {
+    var maillist = [];
+    if(req.body.group4){
+        var group4 = await Reviewer.find({ status: 4 });
+        for (let i = 0; i < group4.length; i++){
+            maillist.push(group4[i].email);
+        }
+    } 
+    if(req.body.group3){
+        var group3 = await Reviewer.find({ status: 3 });
+        for (let i = 0; i < group3.length; i++){
+            maillist.push(group3[i].email);
+        }
+    } 
+    if(req.body.group2){
+        var group2 = await Reviewer.find({ status: 2 });
+        for (let i = 0; i < group2.length; i++){
+            maillist.push(group2[i].email);
+        }
+    } 
+    if(req.body.group1){
+        var group1 = await Reviewer.find({ status: 1 });
+        for (let i = 0; i < group1.length; i++){
+            maillist.push(group1[i].email);
+        }
+    } 
+    if(req.body.group0){
+        var group0 = await Reviewer.find({ status: 0 });
+        for (let i = 0; i < group0.length; i++){
+            maillist.push(group0[i].email);
+        }
+    } 
+    console.log(maillist);
+    
+    mail.sendBlast({
+        user: maillist,
+        filename: 'email-blast',
+        subject: req.body.subject,
+        message: req.body.message
+    });
+    
     res.render('settings');
 }

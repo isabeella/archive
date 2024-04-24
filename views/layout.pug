@@ -5,8 +5,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Document Archive Website
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
-    link.styles(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css", integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK", crossorigin="anonymous")
-    link(rel='stylesheet', href=`/styles.css` id='mainStylesheet')
+    link(rel='stylesheet', href=`/dmstyles.css` id='mainStylesheet')
   body
     block header
         nav.navbar.navbar-expand-lg
@@ -90,17 +89,17 @@ html
       function loadMode(){
         if (document.cookie.length > 0) {
             var mode = document.cookie.match(/mode=(dark|light)/)[1];
-            
-            if (mode=="light") {
-              stylesheet = stylesheetArray[0];
-              whichButton = buttonsArray[0];
-            } else if (mode=="dark") {
+            if (mode=="dark") {
               stylesheet = stylesheetArray[1];
               whichButton = buttonsArray[1];
             }
+            else if (mode=="light") {
+              stylesheet = stylesheetArray[0];
+              whichButton = buttonsArray[0];
+            }  
+            document.querySelector('#mainStylesheet').href = stylesheet;
+            document.querySelector('#modeButton').src = whichButton;
         }
-        document.querySelector('#mainStylesheet').href = stylesheet;
-        document.querySelector('#modeButton').src = whichButton;
       }
       // Bind the click event to the button
       document.querySelector('.darkbutton').addEventListener('click', toggleStylesheet);

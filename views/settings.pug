@@ -2,18 +2,53 @@ extends layout
 
 block content 
     .reviewers.card-body
-        form.form.card-body(action=`/settings` method="POST")
-            h5 Settings
+        form.form.card-body(action=`/settings/emailprefs` method="POST")
+            h5 Email Settings
             p Which emails would you like sent?
-            input(type="checkbox", name="edit")
-            label(for="edit")="-Allow edits"
+            .groupLevel
+                input(type="checkbox", name="pref1" checked=preferences.pref1)
+                label(for="pref1")=" emails to reviewers when new article is submitted"
             br
-            input(type="checkbox", name="edit")
-            label(for="edit")="-Allow edits"
+            .groupLevel
+                input(type="checkbox", name="pref2" checked=preferences.pref2)
+                label(for="pref2")=" emails to contributors when their articles are reviewed"
             br
-            input(type="checkbox", name="edit")
-            label(for="edit")="-Allow edits"
+            .groupLevel
+                input(type="checkbox", name="pref3" checked=preferences.pref3)
+                label(for="pref3")=" emails to assigned reviewers when the contributor submits their edits"
             br
-            input(type="checkbox", name="edit")
-            label(for="edit")="-Allow edits"
-            
+            .groupLevel
+                input(type="checkbox", name="pref4" checked=preferences.pref4)
+                label(for="pref4")=" emails to contributor when their article gets published"
+            br
+            button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
+        form.form.card-body(action=`/settings/emailblast` method="POST")
+            h5 Email Blast
+            .allGroups
+                p To:
+                .groupLevel
+                    input(type="checkbox", name="group4")
+                    label(for="group4")=" Level 4"
+                .groupLevel
+                    input(type="checkbox", name="group3")
+                    label(for="group3")=" Level 3"
+                .groupLevel
+                    input(type="checkbox", name="group2")
+                    label(for="group2")=" Level 2"
+                .groupLevel
+                    input(type="checkbox", name="group1")
+                    label(for="group1")=" Level 1"
+                .groupLevel
+                    input(type="checkbox", name="group0")
+                    label(for="group0")=" Level 0"
+            br
+            label(for="subject")="Subject"
+            input(type="text" name="subject")
+            br
+            label(for="message")="Message"
+            textarea(name="message" style="width: 100%")
+            br
+            button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Send
+        //MULTIPLE LEVEL 4S
+        //LEVEL 4 CAN REMOVE OTHER LEVEL 4S
+        //EMAIL BLASTING - CHECKBOXES TO SELECT WHICH GROUPS TO SEND TO AND TEXTBOX TO WRTIE MESSAGE
