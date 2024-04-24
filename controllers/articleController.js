@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
 const Reviewer = mongoose.model('Reviewer');
+const Preference = mongoose.model('Preference');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -34,6 +35,14 @@ exports.resize = async (req, res, next) => {
 
 exports.home = async(req, res) => {
     const articles = await Article.find({ reviewStat: "Reviewed" });
+    //Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
+    //    var defaultPrefs = {
+    //        pref1: true,
+    //        pref2: true,
+    //        pref3: true,
+    //        pref4: true
+    //    }
+    //    const preference = await (new Preference(defaultPrefs)).save();
     res.render('main', {articles});
 };
 

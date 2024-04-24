@@ -236,3 +236,14 @@ input[type="checkbox"]::after {
 input[type="checkbox"]:checked::after {
   visibility: visible;
 }
+.allGroups {
+    display: inline-grid;
+    width: 100%;
+    grid-template-columns: auto auto auto auto auto auto;
+    float: left;
+}
+.groupLevel{
+    display: inline-grid;
+    width: 75%;
+    grid-template-columns: auto auto;
+}

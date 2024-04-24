@@ -13,10 +13,9 @@ mongoose.connection.on('error', (err) => {
 // READY?! Let's go!
 //import all of our models
 
-//require('./models/Pattern.js');
 require('./models/Reviewer.js');
 require('./models/Article.js');
-//require('./models/Comment.js');
+require('./models/Preference.js');
 
 // Start our app!
 const app = require('./app');

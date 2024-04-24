@@ -2,15 +2,9 @@ mixin reviewerCard(reviewer = {})
     div.card-body.reviewerCard
       .reviewerInfo
           h5.card-title=reviewer.firstname +" "+ reviewer.lastname
-          //if reviewer.status == 4
-            p.card-text Site Administrator
-          //else if reviewer.status == 3
-            p.card-text Head Reviewer
-          //else if reviewer.status == 2
-            p.card-text Reviewer
           if user.status >= 3
             p.card-text="Level: " + reviewer.status
-            p.card-text=reviewer.email
+          p.card-text=reviewer.email
       if user.status == 4
         if reviewer.status <= 3 && reviewer.status != 0
           .CRUD
@@ -26,8 +20,4 @@ mixin reviewerCard(reviewer = {})
             a(href=`reviewers/edit/${reviewer.id}`) edit
             br  
             a(href=`reviewers/delete/${reviewer.id}`) remove
-
-          //a.btn.btn-primary(href=`/article/${article._id}`) Read More
-
-
           //Locker 507 - Combo: 11-29-47

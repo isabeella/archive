@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Reviewer = mongoose.model('Reviewer');
 const Article = mongoose.model('Article');
 const promisify = require('es6-promisify');
+const mail = require('../handlers/mail');
 
 exports.loginForm = (req, res) => {
   res.render('login', { title: 'Login' });
@@ -40,6 +41,11 @@ exports.register = async (req, res, next) => {
   const reviewer = new Reviewer({ email: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, status: req.body.status });
   const register = promisify(Reviewer.register, Reviewer);
   await register(reviewer, req.body.password);
+  mail.send({
+        user: reviewer.email,
+        filename: 'new-member',
+        subject: 'welcome!'
+    });
   next(); // pass to authController.login
 };
 
