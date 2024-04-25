@@ -8,7 +8,7 @@ This project was meant to provide a place for high schoolers to share their rese
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Explanation of Levels](#reviewer levels)
+- [Explanation of Levels](#reviewer-levels)
 
 ## Installation
 
