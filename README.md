@@ -41,9 +41,8 @@ Install the following dependencies:
     "pug": "^3.0.2",
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
-
-# Example installation commands
-npm start (in your terminal)
+Example installation commands
+    npm start (in your terminal)
 
 ## Usage
 The configuration of the code is pretty easy to navigate and understand. Please excuse any weird methods I may have used, I wrote the majority of this code my junior year of high school and already looking back a few months later I am cringing at some of the ways I set up my code. 
