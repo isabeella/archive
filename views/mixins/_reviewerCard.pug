@@ -6,7 +6,7 @@ mixin reviewerCard(reviewer = {})
             p.card-text="Level: " + reviewer.status
           p.card-text=reviewer.email
       if user.status == 4
-        if reviewer.status <= 3 && reviewer.status != 0
+        if reviewer.status <= 4 && reviewer.status != 0
           .CRUD
             a(href=`reviewers/edit/${reviewer.id}`) edit
             br  
@@ -18,6 +18,5 @@ mixin reviewerCard(reviewer = {})
         if reviewer.status < 3 
           .CRUD
             a(href=`reviewers/edit/${reviewer.id}`) edit
-            br  
-            a(href=`reviewers/delete/${reviewer.id}`) remove
-          //Locker 507 - Combo: 11-29-47
+            //br  
+            //a(href=`reviewers/delete/${reviewer.id}`) remove

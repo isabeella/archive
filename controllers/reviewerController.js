@@ -80,10 +80,12 @@ exports.updateAccount = async (req, res) => {
 };
 
 exports.updateOwnAccount = async (req, res) => {
+  console.log("running own account updates");
   const updates = {
-    name: req.body.name,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     email: req.body.email,
-    status: req.body.status
+    //status: req.body.status
   };
   console.log(updates);
   console.log(req.body);
