@@ -115,7 +115,7 @@ exports.settings = async(req, res) => {
     res.render('settings', {preferences});
 }
 
-exports.setEmailPrefs = async(req, res) => {
+exports.setEmailPrefs = async(req, res, next) => {
     if(req.body.pref2 == "on"){
         var twoPref = true;
     }
@@ -173,10 +173,10 @@ exports.setEmailPrefs = async(req, res) => {
     { new: true, runValidators: true, context: 'query' }
   );
   const preferences = await Preference.findOne({ _id: "6629c125c630f6b78354b44f"});
-  res.render('settings', {preferences});
+  next();
 }
 
-exports.sendEmailBlast = async(req, res) => {
+exports.sendEmailBlast = async(req, res, next) => {
     var maillist = [];
     if(req.body.group4){
         var group4 = await Reviewer.find({ status: 4 });
@@ -210,12 +210,14 @@ exports.sendEmailBlast = async(req, res) => {
     } 
     console.log(maillist);
     
-    mail.sendBlast({
-        user: maillist,
-        filename: 'email-blast',
-        subject: req.body.subject,
-        message: req.body.message
-    });
+    if(maillist.length != 0){
+        mail.sendBlast({
+            user: maillist,
+            filename: 'email-blast',
+            subject: req.body.subject,
+            message: req.body.message
+        });
+    }
     
-    res.render('settings');
+    next();
 }

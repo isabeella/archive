@@ -14,8 +14,12 @@ router.post('/contribute',
 );
 
 router.get('/settings', authController.settings);
-router.post('/settings/emailprefs', authController.setEmailPrefs);
-router.post('/settings/emailblast', authController.sendEmailBlast);
+router.post('/settings/emailprefs', 
+            authController.setEmailPrefs,
+            authController.settings);
+router.post('/settings/emailblast', 
+            authController.sendEmailBlast,
+            authController.settings);
 
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);
@@ -60,7 +64,6 @@ router.get('/minetoreview', articleController.minetoreview);
 router.get('/reviewed', articleController.reviewed);
 router.get(`/delete/:id`, articleController.deleteArticle);
 
-
 router.get('/review/:id', articleController.reviewArticle);
 router.post('/review/:id', articleController.submitReview);
 
@@ -73,5 +76,8 @@ router.get('/account/:id', reviewerController.account);
 router.post('/account/:id', reviewerController.updateOwnAccount);
 
 router.post('/article/:id/citation', articleController.generateCitation);
+
+router.get('/unpublished/:id', articleController.myUnpublishedArticles);
+router.get('/published/:id', articleController.myPublishedArticles);
 
 module.exports = router;

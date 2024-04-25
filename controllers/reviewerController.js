@@ -63,7 +63,9 @@ exports.editReviewer = async (req, res) => {
 };
 
 exports.confirmDelete = async (req, res, next) => {
-  const reviewer = await Reviewer.findOneAndDelete({ _id: req.params.id });
+  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+  await Article.deleteMany({ _id: reviewer.id, reviewStat: "In Review"});
+  await Reviewer.findOneAndDelete({ _id: reviewer.id });
   res.redirect('/reviewers');
 };
 
