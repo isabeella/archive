@@ -33,6 +33,21 @@ exports.send = async (options) => {
   return sendMail(mailOptions);
 };
 
+exports.sendAnon = async (options) => {
+  const html = generateHTML(options.filename, options);
+  const text = htmlToText.convert(html);
+  const mailOptions = {
+    from: `Westridge Archive <noreply-archive@westridge.org>`,
+    bcc: options.user,
+    subject: options.subject,
+    html,
+    text
+  };
+  const sendMail = promisify(transport.sendMail, transport);
+  return sendMail(mailOptions);
+};
+
+
 exports.sendContributionUpdate = async (options) => {
   const html = generateHTML(options.filename, options);
   const text = htmlToText.convert(html);

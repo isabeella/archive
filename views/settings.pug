@@ -6,12 +6,8 @@ block content
             h5 Email Settings
             p Which emails would you like sent?
             .groupLevel
-                input(type="checkbox", name="pref1" checked=preferences.pref1)
-                label(for="pref1")=" emails to reviewers when new article is submitted"
-            br
-            .groupLevel
                 input(type="checkbox", name="pref2" checked=preferences.pref2)
-                label(for="pref2")=" emails to contributors when their articles are reviewed"
+                label(for="pref2")=" emails to contributors when their articles are reviewed and need edits"
             br
             .groupLevel
                 input(type="checkbox", name="pref3" checked=preferences.pref3)
@@ -20,6 +16,18 @@ block content
             .groupLevel
                 input(type="checkbox", name="pref4" checked=preferences.pref4)
                 label(for="pref4")=" emails to contributor when their article gets published"
+            br
+            .groupLevel
+                input(type="checkbox", name="pref5" checked=preferences.pref5)
+                label(for="pref5")=" emails to level 2 reviewers when new article is submitted"
+            br
+            .groupLevel
+                input(type="checkbox", name="pref6" checked=preferences.pref6)
+                label(for="pref6")=" emails to level 3 reviewers when new article is submitted"
+            br
+            .groupLevel
+                input(type="checkbox", name="pref7" checked=preferences.pref7)
+                label(for="pref7")=" emails to level 4 reviewers when new article is submitted"
             br
             button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
         form.form.card-body(action=`/settings/emailblast` method="POST")

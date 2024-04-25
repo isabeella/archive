@@ -36,19 +36,21 @@ exports.resize = async (req, res, next) => {
 exports.home = async(req, res) => {
     const articles = await Article.find({ reviewStat: "Reviewed" });
     //Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
-    //    var defaultPrefs = {
-    //        pref1: true,
-    //        pref2: true,
-    //        pref3: true,
-    //        pref4: true
-    //    }
-    //    const preference = await (new Preference(defaultPrefs)).save();
+//        var defaultPrefs = {
+//            pref2: true,
+//            pref3: true,
+//            pref4: true,
+//            pref5: true,
+//            pref6: true,
+//            pref7: true,
+//        }
+//        const preference = await (new Preference(defaultPrefs)).save();
     res.render('main', {articles});
 };
 
 exports.submit = async (req, res) => {
-    console.log("in submit 1" + req.body.filename);
-    console.log(req.body.file);
+//    console.log("in submit 1" + req.body.filename);
+//    console.log(req.body.file);
     try {
         req.body.email = req.user.email;
         req.body.firstname = req.user.firstname;
@@ -56,7 +58,7 @@ exports.submit = async (req, res) => {
         req.body.file = req.file.originalname;
         req.body.edit = "false"
         const article = await (new Article(req.body)).save();
-        console.log("in submit try");// + article);
+        console.log("in submit try" + article);
     }
     catch (error) {
         req.flash('fail', 'Please make sure to fill out all fields and upload a PDF')
@@ -67,6 +69,30 @@ exports.submit = async (req, res) => {
         user: req.user.email,
         filename: 'new-contribution',
         subject: 'Thanks!'
+    });
+    const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+    var reviewersReceiving = [];
+    var reviewersReceivingEmails = [];
+    if(settings.pref5 == true){
+        var addReviewers = await Reviewer.find({ status: 2 });
+        reviewersReceiving.push.apply(reviewersReceiving, addReviewers); 
+    } 
+    if(settings.pref6 == true){
+        var addReviewers = await Reviewer.find({ status: 3 });
+        reviewersReceiving.push.apply(reviewersReceiving, addReviewers); 
+    } 
+    if(settings.pref7 == true){
+        var addReviewers = await Reviewer.find({ status: 4 });
+        reviewersReceiving.push.apply(reviewersReceiving, addReviewers);  
+    }
+    for(let i = 0; i < reviewersReceiving.length; i++){
+        reviewersReceivingEmails.push(reviewersReceiving[i].email);
+    }
+    console.log(reviewersReceivingEmails);
+    mail.sendAnon({
+        user: reviewersReceivingEmails,
+        filename: 'reviewer-new-article',
+        subject: 'New to Review'
     });
     res.render('thanku');
 };
@@ -145,13 +171,30 @@ exports.submitReview = async(req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
-  mail.sendContributionUpdate({
-    user: updates.email,
-    filename: 'review-update',
-    subject: 'UPDATE: Westridge Archive Submission',
-    message,
-    status
-  });
+  const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+  if(req.body.reviewStat == "In Review"){  
+      if(settings.pref2){
+          mail.sendContributionUpdate({
+            user: updates.email,
+            filename: 'review-update',
+            subject: 'UPDATE: Westridge Archive Submission',
+            message,
+            status
+          });
+      }
+  }
+  else if(req.body.reviewStat == "Reviewed"){
+      if(settings.pref4){
+          mail.sendContributionUpdate({
+            user: updates.email,
+            filename: 'review-update',
+            subject: 'UPDATE: Westridge Archive Submission',
+            message,
+            status
+          });
+      }
+  }
+  
   res.redirect('/');
 }
 
@@ -180,13 +223,16 @@ exports.submitEdit = async(req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
-  console.log(article);
-  mail.sendEditUpdate({
-    user: article.reviewer,
-    filename: 'edit-update',
-    subject: 'UPDATE: Contributor Edits',
-    article
-  });
+  //console.log(article);
+  const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+  if(settings.pref3){
+      mail.sendEditUpdate({
+        user: article.reviewer,
+        filename: 'edit-update',
+        subject: 'UPDATE: Contributor Edits',
+        article
+      });
+  }
   res.redirect('/');
 }
 
