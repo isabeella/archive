@@ -41,7 +41,9 @@ Install the following dependencies:
     "pug": "^3.0.2",
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
+    
 Example installation commands
+
     npm start (in your terminal)
 
 ## Usage
@@ -55,7 +57,11 @@ The basic framework of how I set up my files is based off of Wes Bos's Learn Nod
 
 ## Reviewer Levels
 Level 0 = Just a site viewer, people who want to contribute articles but not review
+
 Level 1 = Still just a site viewer, but level 1 indicates the user wants to be a reviewer
+
 Level 2 = Reviewer
+
 Level 3 = Reviewer + Moderator (allowed to change level 1 to level 2, not able to delete users though)
+
 Level 4 = Reviewer + Administrator (allowed to change any user's status, access to site settings and email blasts)
