@@ -8,8 +8,7 @@ This project was meant to provide a place for high schoolers to share their rese
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Explanation of Levels](#reviewer levels)
 
 ## Installation
 
@@ -43,7 +42,7 @@ Install the following dependencies:
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
 
-## Example installation commands
+# Example installation commands
 npm start (in your terminal)
 
 ## Usage
@@ -54,3 +53,10 @@ Basically, anything you see on the website is in a pug file in the views folder.
 Any functions called run through the routes.js file to call functions in the 3 different controllers (where each individual function is written)
 
 The basic framework of how I set up my files is based off of Wes Bos's Learn Node Premium Course
+
+## Reviewer Levels
+Level 0 = Just a site viewer, people who want to contribute articles but not review
+Level 1 = Still just a site viewer, but level 1 indicates the user wants to be a reviewer
+Level 2 = Reviewer
+Level 3 = Reviewer + Moderator (allowed to change level 1 to level 2, not able to delete users though)
+Level 4 = Reviewer + Administrator (allowed to change any user's status, access to site settings and email blasts)
