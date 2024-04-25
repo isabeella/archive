@@ -300,6 +300,18 @@ exports.searchArticles = async (req, res) => {
   res.render('main', {articles});
 };
 
+exports.myUnpublishedArticles = async (req, res) => {
+  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+  const articles = await Article.find({ email: reviewer.email, reviewStat: "In Review" });
+  res.render('account', { reviewer, articles });
+}
+
+exports.myPublishedArticles = async (req, res) => {
+  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+  const articles = await Article.find({ email: reviewer.email, reviewStat: "Reviewed" });
+  res.render('account', { reviewer, articles });
+}
+
 exports.generateCitation = async (req, res) => {
     const article = await Article.findOne({ _id: req.params.id });
     const citationStyle = req.body.style
