@@ -6,16 +6,37 @@ block content
     .reviewers.card-body
         h5 Account
         form.form(action=`/account/${user.id}` method="POST")
-          label(for="firstname") First Name 
-          input(type="text" name="firstname" value=user.firstname)
-          br
-          label(for="lastname") Last Name 
-          input(type="text" name="lastname" value=user.lastname)
-          br
-          label(for="email") Email 
-          input(type="email" name="email" value=user.email)
-          br
-          button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
+            label(for="firstname") First Name 
+            input(type="text" name="firstname" value=user.firstname)
+            br
+            label(for="lastname") Last Name 
+            input(type="text" name="lastname" value=user.lastname)
+            br
+            label(for="email") Email 
+            input(type="email" name="email" value=user.email)
+            br
+            label(for="status") Reviewer Status
+            select(name='status')
+                if user.status == 0
+                    option(value = 0 selected)="Site Viewer"
+                    option(value = 1)="Interested in Reviewing"
+                else if user.status == 1 
+                    option(value = 0)="Site Viewer"
+                    option(value = 1 selected)="Interested in Reviewing"
+                else if user.status == 2 
+                    option(value = 0)="Site Viewer"
+                    option(value = 2 selected)="Reviewer"
+                else if user.status == 3
+                    option(value = 0)="Site Viewer"
+                    option(value = 2)="Reviewer"
+                    option(value = 3 selected)="Reviewer and Moderator"
+                else if user.status == 4
+                    option(value = 0)="Site Viewer"
+                    option(value = 1)="Interested in Reviewing"
+                    option(value = 2)="Reviewer"
+                    option(value = 3)="Reviewer and Moderator"
+                    option(value = 4 selected)="Administrator"
+            button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
         br
         br
         h5 My Articles
