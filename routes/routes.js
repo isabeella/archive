@@ -39,6 +39,7 @@ router.post('/register',
 router.get('/logout', authController.logout);
 
 router.get('/contact', catchErrors(articleController.contact));
+router.post('/contact/sendinquiry', catchErrors(articleController.sendinquiry));
 
 router.get('/Sciences', articleController.homeSciences);
 router.get('/Mathematics', articleController.homeMathematics);
