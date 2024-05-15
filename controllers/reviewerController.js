@@ -3,6 +3,7 @@ const Reviewer = mongoose.model('Reviewer');
 const Article = mongoose.model('Article');
 const promisify = require('es6-promisify');
 const mail = require('../handlers/mail');
+const authController = require('../controllers/authController');
 
 exports.loginForm = (req, res) => {
   res.render('login', { title: 'Login' });
@@ -56,10 +57,17 @@ exports.account = async (req, res) => {
 };
 
 exports.editReviewer = async (req, res) => {
+  var statuses = ["Level 0 - Site Viewer", "Level 1 - Interested in Reviewing", "Level 2 - Reviewer", "Level 3 - Reviewer + Moderator", "Level 4 - Administrator"];
   // 1. Find the pattern given the ID
   const reviewer = await Reviewer.findOne({ _id: req.params.id });
   // 3. Render out the edit form so the user can update their pattern
-  res.render('editReviewer', { reviewer });
+  var options = [];
+  for(let i = 0; i<statuses.length; i++){
+    if(i>=reviewer.status && i<4){
+        options.push(i);
+    }
+  }
+  res.render('editReviewer', { reviewer, options });
 };
 
 exports.confirmDelete = async (req, res, next) => {

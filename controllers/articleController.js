@@ -115,7 +115,28 @@ exports.viewers = async (req, res) => {
 }
 
 exports.contact = async(req, res) => {
+    if(req.user){
+        console.log(req.user);
+    }
     res.render('contact');
+}
+
+exports.sendinquiry = async(req, res) => {
+    let maillist = [];
+    var level4s = await Reviewer.find({ status: 4 });
+    for (let i = 0; i < level4s.length; i++){
+        maillist.push(level4s[i].email);
+    }
+    if(maillist.length != 0){
+        mail.sendInquiry({
+            from: req.body.email,
+            user: maillist,
+            filename: 'user-inquiry',
+            subject: req.body.subject,
+            message: req.body.message
+        });
+    }
+    res.redirect('/');
 }
 
 exports.toreview = async(req, res) => {

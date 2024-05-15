@@ -1,18 +1,23 @@
 extends layout
 
 block content 
+
   .reviewers.card-body
     form.form(action=`/reviewers/edit/${reviewer.id}` method="POST")
       h2 Reviewer Authentication
-      label(for="status") Reviewer Status 
-      select(name='status')
-          option(value = 0) Level 0 - Site Viewer
-          option(value = 1) Level 1 - Interested in Reviewing
-          if user.status==3
-            option(value = 2) Level 2 - Reviewer
-          if user.status==4
-            option(value = 2) Level 2 - Reviewer
-            option(value = 3) Level 3 - Reviewer + Moderator
-            option(value = 4) Level 4 - Administrator
+      - var statuses = ["Level 0 - Site Viewer", "Level 1 - Interested in Reviewing", "Level 2 - Reviewer", "Level 3 - Reviewer + Moderator", "Level 4 - Administrator"];
+      label(for="status") Reviewer Status
+      select(name='status')=reviewer.status
+          option(value=reviewer.status selected)= statuses[reviewer.status]  
+          if user.status == 3
+              each option in options
+                if option != reviewer.status
+                    option(value=option)= statuses[option] 
+          else if user.status == 4 
+              option(value = 0)="Level 0 - Site Viewer"
+              option(value = 1)="Level 1 - Interested in Reviewing"
+              option(value = 2)="Level 2 - Reviewer"
+              option(value = 3)="Level 3 - Reviewer + Moderator"
+              option(value = 4)="Level 4 - Administrator"
       br
       input.button.btn.btn-primary(type="submit" value="Update Status →" id="submitbutton")

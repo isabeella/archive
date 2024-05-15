@@ -7,3 +7,19 @@ block content
     p Please use the form below to get in touch with our team. We strive to respond to all inquiries within [insert timeframe], although response times may vary based on the volume of messages received. For urgent matters, please indicate the nature of your request, and we'll make every effort to prioritize it. 
     p Please note that if you have specific inquiries about a particular article, content, or user account, kindly include relevant details to help us better address your concerns.
     p Thank you for visiting our website, and we look forward to assisting you!
+    
+    form.form.card-body(action=`/contact/sendinquiry` method="POST")
+        h5 Send inquiry
+        laberl(for="email")="Your email address"
+        if user
+            input(type="text" name="email" value=user.email readonly)
+        else
+            input(type="text" name="email")
+        br
+        label(for="subject")="Subject"
+        input(type="text" name="subject")
+        br
+        label(for="message")="Message"
+        textarea(name="message" style="width: 100%")
+        br
+        button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Send
