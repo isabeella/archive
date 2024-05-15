@@ -95,7 +95,7 @@ exports.updateOwnAccount = async (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     email: req.body.email,
-    //status: req.body.status
+    status: req.body.status
   };
   console.log(updates);
   console.log(req.body);
