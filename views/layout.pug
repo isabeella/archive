@@ -10,7 +10,7 @@ html
     block header
         nav.navbar.navbar-expand-lg
           a.navbar-brand(href='/')
-            img(src="/images/WLogo.png", alt="Westridge" height="50px") 
+            img(src="/images/WLogo.png", alt="Westridge", height="50px") 
           a.navbar-brand(href='/') Archives
           button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-icon
@@ -28,34 +28,42 @@ html
                   li.nav-item
                     a.nav-link(href='/toreview') ARTICLES TO REVIEW
                   li.nav-item
-                    a.nav-link(href=`/account/${user._id}`) ACCOUNT
-                  li.nav-item
                     a.nav-link(href='/settings') SETTINGS
-                  li.nav-item
-                    a.nav-link(href='/logout') LOGOUT
+                  li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='#', id='accountDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') ACCOUNT
+                    div.dropdown-menu(aria-labelledby='accountDropdown')
+                      a.dropdown-item(href=`/account/${user._id}`) Profile
+                      a.dropdown-item(href=`/favorites/${user._id}`) Favorites
+                      a.dropdown-item(href='/logout') LOGOUT
                 else if user && user.status==3
                   li.nav-item
                     a.nav-link(href='/reviewers') REVIEWERS
                   li.nav-item
                     a.nav-link(href='/toreview') ARTICLES TO REVIEW
-                  li.nav-item
-                    a.nav-link(href=`/account/${user._id}`) ACCOUNT
-                  li.nav-item
-                    a.nav-link(href='/logout') LOGOUT
+                  li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='#', id='accountDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') ACCOUNT
+                    div.dropdown-menu(aria-labelledby='accountDropdown')
+                      a.dropdown-item(href=`/account/${user._id}`) Profile
+                      a.dropdown-item(href=`/favorites/${user._id}`) Favorites
+                      a.dropdown-item(href='/logout') LOGOUT
                 else if user && user.status==2
                   li.nav-item
                     a.nav-link(href='/reviewers') REVIEWERS
                   li.nav-item
                     a.nav-link(href='/toreview') ARTICLES TO REVIEW
-                  li.nav-item
-                    a.nav-link(href=`/account/${user._id}`) ACCOUNT
-                  li.nav-item
-                    a.nav-link(href='/logout') LOGOUT
+                  li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='#', id='accountDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') ACCOUNT
+                    div.dropdown-menu(aria-labelledby='accountDropdown')
+                      a.dropdown-item(href=`/account/${user._id}`) Profile
+                      a.dropdown-item(href=`/favorites/${user._id}`) Favorites
+                      a.dropdown-item(href='/logout') LOGOUT
                 else if user 
-                  li.nav-item
-                    a.nav-link(href=`/account/${user._id}`) ACCOUNT
-                  li.nav-item
-                    a.nav-link(href='/logout') LOGOUT
+                  li.nav-item.dropdown
+                    a.nav-link.dropdown-toggle(href='#', id='accountDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') ACCOUNT
+                    div.dropdown-menu(aria-labelledby='accountDropdown')
+                      a.dropdown-item(href=`/account/${user._id}`) Profile
+                      a.dropdown-item(href=`/favorites/${user._id}`) Favorites
+                      a.dropdown-item(href='/logout') LOGOUT
                 else
                   li.nav-item
                     a.nav-link(href='/login') LOGIN
@@ -64,6 +72,9 @@ html
         block content
     button.darkbutton
       img(src=`/images/darkbutton.png`, alt="Westridge", height="50px", id="modeButton")
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
     script.
       // Load initial mode from local storage or default to dark mode
       var stylesheetArray = ['/styles.css', '/dmstyles.css'];

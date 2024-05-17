@@ -35,7 +35,7 @@ exports.resize = async (req, res, next) => {
 
 exports.home = async(req, res) => {
     const articles = await Article.find({ reviewStat: "Reviewed" });
-    //Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
+//    Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
 //        var defaultPrefs = {
 //            pref2: true,
 //            pref3: true,
