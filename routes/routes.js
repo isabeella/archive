@@ -21,6 +21,9 @@ router.post('/settings/emailblast',
             authController.sendEmailBlast,
             authController.settings);
 
+router.get(`/favorites/:id`, reviewerController.favorites);
+
+
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);
 
@@ -75,6 +78,7 @@ router.post('/search', articleController.searchArticles);
 
 router.get('/account/:id', reviewerController.account);
 router.post('/account/:id', reviewerController.updateOwnAccount);
+router.post('/account/delete/:id', reviewerController.deleteOwnAccount);
 
 router.post('/article/:id/citation', articleController.generateCitation);
 

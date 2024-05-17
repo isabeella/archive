@@ -32,19 +32,32 @@ block content
                     option(value = 3 selected)="Reviewer and Moderator"
                 else if user.status == 4
                     option(value = 0)="Site Viewer"
-                    option(value = 1)="Interested in Reviewing"
                     option(value = 2)="Reviewer"
                     option(value = 3)="Reviewer and Moderator"
                     option(value = 4 selected)="Administrator"
+            br
             button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Submit
         br
+        h5 Delete Account
+        form.form(action=`/account/delete/${user.id}` method="POST")
+            p When you delete your account your unpublished/still in review articles will automatically be deleted. Unless otherwise specified below, your published articles will remain on the site.
+            select(name='deleteArticles')
+                option(value = false selected)="I would like my published articles to remain published"
+                option(value = true)="I would like my published articles deleted from the site"
+            br
+            br
+            input(type="checkbox", name="confirmation")
+            label(for="confirmation")="- I confirm I would like my account deleted"
+            br
+            button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Delete Account
         br
-        h5 My Articles
-        .links
-            a.link(href=`/unpublished/${user._id}`) Unpublished
-            a.link(href=`/published/${user._id}`) Published
-        each article in articles
-            if article.edit == "true" 
-                +reviewArticleCard(article)
-            else
-                +articleCard(article)
+        if articles.length>0
+            h5 My Articles
+            .links
+                a.link(href=`/unpublished/${user._id}`) Unpublished
+                a.link(href=`/published/${user._id}`) Published
+            each article in articles
+                if article.edit == "true" 
+                    +reviewArticleCard(article)
+                else
+                    +articleCard(article)

@@ -77,6 +77,20 @@ exports.confirmDelete = async (req, res, next) => {
   res.redirect('/reviewers');
 };
 
+exports.deleteOwnAccount = async (req, res, next) => {
+  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+  console.log(req.body);
+  if(req.body.confirmation == "on"){
+      await Article.deleteMany({ _id: reviewer.id, reviewStat: "In Review"});
+      if(req.body.deleteArticles == true){
+          await Article.deleteMany({ _id: reviewer.id, reviewStat: "Reviewed"});
+      }
+      await Reviewer.findOneAndDelete({ _id: reviewer.id });
+      res.redirect('/');
+  }
+  res.redirect(`/account/${reviewer.id}`);
+};
+
 exports.updateAccount = async (req, res) => {
   const updates = {
     status: req.body.status
@@ -106,3 +120,32 @@ exports.updateOwnAccount = async (req, res) => {
   );
   res.redirect('/');
 };
+
+exports.favorites = async (req, res) => {
+    try {
+        const user = await Reviewer.findOne({ _id: req.params.id }).select('saved');
+        console.log("type:" + typeof user.saved); // Log user object
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        if (!Array.isArray(user.saved)) {
+            console.error('Favorites is not an array');
+            return res.status(500).send('Favorites data is corrupted');
+        }
+        console.log("user.saved:", user.saved); // Log user.saved
+        const array = user.saved;
+        console.log("array:", array); // Log array
+        const favorites = [];
+        for (let i = 0; i < array.length; i++) {
+            const article = await Article.findOne({ _id: array[i] });
+            if (article) {
+                favorites.push(article);
+            }
+        }
+        res.render("favorites", { favorites });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
+    }
+};
+

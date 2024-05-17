@@ -247,3 +247,6 @@ input[type="checkbox"]:checked::after {
     width: 75%;
     grid-template-columns: auto auto;
 }
+.dropdown-menu {
+    padding-left: 15px;
+}

@@ -28,6 +28,9 @@ const reviewerSchema = new Schema({
     type: Number,
     default: 0
   },
+  saved: {
+    type: [String]
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
