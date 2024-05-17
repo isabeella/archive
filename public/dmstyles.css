@@ -12,47 +12,6 @@ h5 {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
-.navbar {
-  display: flex;
-  font-family: 'Montserrat', sans-serif;
-  justify-content: left; 
-  align-items: center; 
-  background-color: black; 
-  padding: 10px; 
-  /*following makes navbar sticky*/
-  position: sticky; 
-  top: 0;
-  z-index: 100;
-}
-.navbar-brand{
-    color: #8EBA66 !important;
-    font-family: 'PT Serif', serif;
-}
-.navbar a {
-    padding: 20px 0;
-    //border-bottom: 1px solid hsla(0,0%,100%,.3);
-    transition: all .4s;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #8EBA66;
-/*
-  color: #47763B; 
-  padding: 10px; 
-  float: left; 
-  list-style-type: none;
-*/
-}
-.navbar a:active {
-  color: #46773c; 
-  background-color: black; 
-}
-.navbar a:hover {
-  color: #46773c;
-  background-color: black; 
-}
 .content{
     margin: 0px auto;
 }
@@ -171,9 +130,6 @@ h5 {
     margin-right:5px;
     background-color: #8EBA66 !important;
 }
-a {
-    color:#F26F6A;
-}
 .searchButton {
     width: 80%;
 }
@@ -255,7 +211,91 @@ input[type="checkbox"]:checked::after {
     width: 75%;
     grid-template-columns: auto auto;
 }
+/* Existing navbar styling */
+.navbar {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    justify-content: left; 
+    align-items: center; 
+    background-color: black; 
+    padding: 10px 10px 0px 10px; 
+    /* Make navbar sticky */
+    position: sticky; 
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-brand {
+    color: #8EBA66 !important;
+    font-family: 'PT Serif', serif;
+}
+
+.navbar a {
+    padding: 20px 0;
+    border-bottom: 1px solid hsla(0,0%,100%,.3);
+    transition: all .4s;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #8EBA66;
+}
+
+a {
+    color: #F26F6A;
+}
+
+.navbar a:active {
+    color: #46773c; 
+    background-color: black; 
+}
+
+/* Green underline on hover for main nav items */
+.navbar a:hover {
+    color: #46773c;
+    background-color: black; 
+    border-bottom: 2px solid green;
+}
+
+/* Dropdown menu padding */
 .dropdown-menu {
-    background: black;
     padding-left: 15px;
+}
+
+/* Ensure the dropdown menu is hidden initially */
+.nav-item .dropdown-menu {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Display the dropdown menu on hover */
+.nav-item:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    position: absolute;
+    background-color: black;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+    padding: 0.5rem 0;
+    margin-top: 0.1rem; /* Reduced margin to make padding smaller */
+}
+
+/* Style for the dropdown items */
+.dropdown-item {
+    color: grey !important;
+    text-transform: capitalize !important;
+    padding: 0.5rem 1rem;
+    margin-left: 20px;
+    margin-right: 20px !important;
+    text-transform: normalcase;
+    text-decoration: none;
+}
+
+/* Grey text color and underline on hover for dropdown items */
+.dropdown-item:hover {
+    color: #57A0D0 !important;
+    border-bottom: 2px solid #57A0D0 !important;
 }
