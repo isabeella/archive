@@ -1,0 +1,9 @@
+extends layout
+include mixins/_articleCard
+
+block content
+    .reviewers.card-body  
+        h5 Favorites
+            if favorites
+                each favorite in favorites
+                    +articleCard(favorite)
