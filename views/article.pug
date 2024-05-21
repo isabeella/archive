@@ -8,7 +8,7 @@ block content
             p=article.firstname + " " + article.lastname
         .saveButton
             button.bookmark
-                img(src=`/images/bookmarkfilled.png`, alt="Save", height="50px", id="saveButton")
+                img(src=`/images/bookmark.png`, alt="Save", height="50px", id="saveButton")
                 br
         embed(src=`/uploads/${article.file || '/uploads.NOFILEFOUND.pdf'}` width="100%" height="800px")        
     .abstractandotherinformation
@@ -50,4 +50,31 @@ block content
                 input.tagSection(type="submit" value="Generate Citation" id="submitbutton")
                 br
                 p=citation
+        br
+        if user
+            h5 Contact
+            form.form.card-body(action=`/article/${article.id}/contact-contributor` method="POST")
+                label(for="email")="Your email address"
+                input(type="text" name="email" value=user.email readonly)
+                br
+                label(for="subject")="Subject"
+                input(type="text" name="subject")
+                br
+                label(for="message")="Message"
+                textarea(name="message" style="width: 100%")
+                br
+                button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Send
+    script.
+        var bookmarks = ["/images/bookmarkfilled.png", "/images/bookmark.png"];
         
+        function toggleSave(){
+            console.log("toggle save");
+            var saveButton = document.querySelector('#saveButton');
+            if(saveButton.src.includes(bookmarks[0])){
+                saveButton.src = bookmarks[1];
+            } else {
+                saveButton.src = bookmarks[0];
+            }
+        }
+        
+        document.querySelector('.bookmark').addEventListener('click', toggleSave);

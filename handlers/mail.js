@@ -109,3 +109,18 @@ exports.sendInquiry = async (options) => {
   const sendMail = promisify(transport.sendMail, transport);
   return sendMail(mailOptions);
 };
+
+exports.sendtoContributor = async (options) => {
+  const html = generateHTML(options.filename, options);
+  const text = htmlToText.convert(html);
+  const mailOptions = {
+    from: options.from,
+    to: options.user,
+    subject: options.subject,
+    html,
+    text,
+    message: options.message
+  };
+  const sendMail = promisify(transport.sendMail, transport);
+  return sendMail(mailOptions);
+};

@@ -81,6 +81,7 @@ router.post('/account/:id', reviewerController.updateOwnAccount);
 router.post('/account/delete/:id', reviewerController.deleteOwnAccount);
 
 router.post('/article/:id/citation', articleController.generateCitation);
+router.post('/article/:id/contact-contributor', reviewerController.contactContributor)
 
 router.get('/unpublished/:id', articleController.myUnpublishedArticles);
 router.get('/published/:id', articleController.myPublishedArticles);
