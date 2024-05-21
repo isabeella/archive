@@ -227,6 +227,7 @@ input[type="checkbox"]:checked::after {
 .navbar-brand {
     color: #8EBA66 !important;
     font-family: 'PT Serif', serif;
+    border: none !important;
 }
 
 .navbar a {

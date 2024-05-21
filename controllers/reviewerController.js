@@ -149,3 +149,14 @@ exports.favorites = async (req, res) => {
     }
 };
 
+exports.contactContributor = async(req, res) => {
+    const article = await Article.findOne({ _id: req.params.id });
+    mail.sendtoContributor({
+        from: req.body.email,
+        user: article.email,
+        filename: 'user-inquiry',
+        subject: req.body.subject,
+        message: req.body.message
+    });
+    res.redirect(`/article/${article.id}`);
+}
