@@ -76,6 +76,8 @@ router.post('/edit/:id', articleController.submitEdit);
 
 router.post('/search', articleController.searchArticles);
 
+router.post('/search/:tag', articleController.searchArticlesTag);
+
 router.get('/account/:id', reviewerController.account);
 router.post('/account/:id', reviewerController.updateOwnAccount);
 router.post('/account/delete/:id', reviewerController.deleteOwnAccount);
@@ -85,5 +87,8 @@ router.post('/article/:id/contact-contributor', reviewerController.contactContri
 
 router.get('/unpublished/:id', articleController.myUnpublishedArticles);
 router.get('/published/:id', articleController.myPublishedArticles);
+
+router.post('/article/:id/save', reviewerController.saveArticle);
+router.post('/article/:id/unsave', reviewerController.unsaveArticle);
 
 module.exports = router;
