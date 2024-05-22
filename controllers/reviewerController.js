@@ -159,4 +159,36 @@ exports.contactContributor = async(req, res) => {
         message: req.body.message
     });
     res.redirect(`/article/${article.id}`);
-}
+};
+
+exports.saveArticle = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).send('Unauthorized');
+    }
+
+    const userId = req.user._id;
+    const articleId = req.params.id;
+
+    try {
+        await Reviewer.findByIdAndUpdate(userId, { $addToSet: { saved: articleId } });
+        res.status(200).send('Article saved');
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+};
+
+exports.unsaveArticle = async (req, res) => { // New function for unsaving
+    if (!req.user) {
+        return res.status(401).send('Unauthorized');
+    }
+
+    const userId = req.user._id;
+    const articleId = req.params.id;
+
+    try {
+        await Reviewer.findByIdAndUpdate(userId, { $pull: { saved: articleId } });
+        res.status(200).send('Article removed from saved list');
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+};

@@ -66,15 +66,57 @@ block content
                 button.btn.btn-primary(type="submit" value="Log In →" id="submitbutton") Send
     script.
         var bookmarks = ["/images/bookmarkfilled.png", "/images/bookmark.png"];
-        
-        function toggleSave(){
+
+        async function toggleSave() {
             console.log("toggle save");
             var saveButton = document.querySelector('#saveButton');
-            if(saveButton.src.includes(bookmarks[0])){
-                saveButton.src = bookmarks[1];
+            var articleId = "#{article._id}"; // Ensure this is how you access the article ID in Pug
+            
+            if (saveButton.src.includes(bookmarks[0])) {
+                try {
+                    let response = await fetch(`/article/${articleId}/unsave`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        saveButton.src = bookmarks[1];
+                    } else {
+                        console.error('Failed to save article');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }              
             } else {
-                saveButton.src = bookmarks[0];
+                try {
+                    let response = await fetch(`/article/${articleId}/save`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        saveButton.src = bookmarks[0];
+                    } else {
+                        console.error('Failed to save article');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             }
         }
-        
+
         document.querySelector('.bookmark').addEventListener('click', toggleSave);
+        // Set the initial state of the save button
+        window.addEventListener("load", (event) => {
+          var isSaved = "#{isSaved}"; //This will output `true` or `false`
+          if (isSaved === 'true') {
+            saveButton.src = bookmarks[0];
+          } else {
+            saveButton.src = bookmarks[1];
+          }
+        });
+        

@@ -100,7 +100,13 @@ exports.submit = async (req, res) => {
 exports.getArticle = async (req, res) => {
     console.log(req.params.id);
     const article = await Article.findOne({ _id: req.params.id });
-    res.render('article', { article });
+    // Check if the user is logged in
+    if (req.user) {
+        const isSaved = req.user.saved.includes(req.params.id);
+        res.render('article', { title: 'Article', article, isSaved });
+    } else {
+        res.render('article', { title: 'Article', article, isSaved: false });
+    }
 }
 
 exports.reviewers = async (req, res) => {
@@ -319,6 +325,15 @@ exports.searchArticles = async (req, res) => {
   console.log(articles);
   //res.json(articles);
   res.render('main', {articles});
+};
+
+exports.searchArticlesTag = async (req, res) => {
+  console.log(req.body);
+  //const searchTerm = req.body.tag;
+  console.log("yoyoyo");
+  //const articles = await Article.find({ reviewStat: "Reviewed", subject: searchTerm});
+  //console.log(articles);
+  //res.render('main', {articles});
 };
 
 exports.myUnpublishedArticles = async (req, res) => {
