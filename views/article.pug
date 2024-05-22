@@ -22,7 +22,8 @@ block content
     .abstractandotherinformation
         - var tags = article.tagsArray
         each tag in tags
-            button.tagSection=tag
+            a(href=`/search/tag/${tag}`)
+                button.tagSection=tag
         br
         br
         h5 Abstract

@@ -5,7 +5,8 @@ mixin articleCard(article = {})
           p=article.firstname + " " + article.lastname
           - var tags = article.tagsArray
           each tag in tags
-            button.tagSection(href=`/search/${tag}`)=tag
+            a(href=`/search/tag/${tag}`)
+                button.tagSection=tag
           p.card-text=article.description
           a.btn.btn-primary(href=`/article/${article._id}`) Read More
       else

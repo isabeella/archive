@@ -327,13 +327,24 @@ exports.searchArticles = async (req, res) => {
   res.render('main', {articles});
 };
 
-exports.searchArticlesTag = async (req, res) => {
-  console.log(req.body);
-  //const searchTerm = req.body.tag;
-  console.log("yoyoyo");
-  //const articles = await Article.find({ reviewStat: "Reviewed", subject: searchTerm});
-  //console.log(articles);
-  //res.render('main', {articles});
+exports.searchArticlesByTag = async (req, res) => {
+  const tag = req.params.tag;
+  console.log(`Searching for articles with tag: ${tag}`);
+
+  if (!tag) return res.redirect('/');
+
+  try {
+    const articles = await Article.find({
+      tagsArray: { $regex: tag, $options: 'i' },
+      reviewStat: "Reviewed"
+    })
+    .sort({ title: 1 });
+
+    res.render('main', { articles, searchTerm: tag });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
 };
 
 exports.myUnpublishedArticles = async (req, res) => {
