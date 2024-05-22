@@ -75,8 +75,7 @@ router.get('/edit/:id', articleController.editArticle);
 router.post('/edit/:id', articleController.submitEdit);
 
 router.post('/search', articleController.searchArticles);
-
-router.post('/search/:tag', articleController.searchArticlesTag);
+router.get('/search/tag/:tag', articleController.searchArticlesByTag);
 
 router.get('/account/:id', reviewerController.account);
 router.post('/account/:id', reviewerController.updateOwnAccount);
