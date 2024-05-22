@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Reviewer = mongoose.model('Reviewer');
 const Article = mongoose.model('Article');
+const Preference = mongoose.model('Preference');
 const promisify = require('es6-promisify');
 const mail = require('../handlers/mail');
 const authController = require('../controllers/authController');
@@ -95,11 +96,15 @@ exports.updateAccount = async (req, res) => {
   const updates = {
     status: req.body.status
   };
-  const reviewer = await Reviewer.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' }
-  );
+//  const reviewer = await Reviewer.findOne({ _id: req.params.id });
+//  if(req.body.status > reviewer.status && settings.pref8){
+//      
+//  }
+//  const reviewer = await Reviewer.findOneAndUpdate(
+//    { _id: req.params.id },
+//    { $set: updates },
+//    { new: true, runValidators: true, context: 'query' }
+//  );
   res.redirect('/reviewers');
 };
 
@@ -118,6 +123,28 @@ exports.updateOwnAccount = async (req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
+  const settings = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee" });
+  if(req.body.status == 1 && settings.pref1){
+      var maillist = [];
+      var group4 = await Reviewer.find({ status: 4 });
+      for (let i = 0; i < group4.length; i++){
+        maillist.push(group4[i].email);
+      }
+      var group3 = await Reviewer.find({ status: 3 });
+      for (let i = 0; i < group3.length; i++){
+        maillist.push(group3[i].email);
+      }
+      var subject = "New Reviewer"
+      var message = "A user has just requested to become a reviewer for the archives. Log in to promote their status."
+      if(maillist.length != 0){
+        mail.sendBlast({
+            user: maillist,
+            filename: 'email-blast',
+            subject: subject,
+            message: message
+        });
+      }
+  }
   res.redirect('/');
 };
 

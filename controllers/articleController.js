@@ -35,16 +35,16 @@ exports.resize = async (req, res, next) => {
 
 exports.home = async(req, res) => {
     const articles = await Article.find({ reviewStat: "Reviewed" });
-//    Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
-//        var defaultPrefs = {
-//            pref2: true,
-//            pref3: true,
-//            pref4: true,
-//            pref5: true,
-//            pref6: true,
-//            pref7: true,
-//        }
-//        const preference = await (new Preference(defaultPrefs)).save();
+    //Following code creates the Preferences model in mongoose, i only turn it on for the first time i load the website and then comment it out.
+//    var defaultPrefs = {
+//        pref2: true,
+//        pref3: true,
+//        pref4: true,
+//        pref5: true,
+//        pref6: true,
+//        pref7: true,
+//    }
+//    const preference = await (new Preference(defaultPrefs)).save();
     res.render('main', {articles});
 };
 
@@ -70,7 +70,7 @@ exports.submit = async (req, res) => {
         filename: 'new-contribution',
         subject: 'Thanks!'
     });
-    const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+    const settings = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee" });
     var reviewersReceiving = [];
     var reviewersReceivingEmails = [];
     if(settings.pref5 == true){
@@ -198,7 +198,7 @@ exports.submitReview = async(req, res) => {
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
-  const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+  const settings = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee" });
   if(req.body.reviewStat == "In Review"){  
       if(settings.pref2){
           mail.sendContributionUpdate({
@@ -251,7 +251,7 @@ exports.submitEdit = async(req, res) => {
     { new: true, runValidators: true, context: 'query' }
   );
   //console.log(article);
-  const settings = await Preference.findOne({ _id: "6629c125c630f6b78354b44f" });
+  const settings = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee" });
   if(settings.pref3){
       mail.sendEditUpdate({
         user: article.reviewer,

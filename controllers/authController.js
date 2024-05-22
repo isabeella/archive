@@ -111,11 +111,18 @@ exports.contribute = (req, res) => {
 };
 
 exports.settings = async(req, res) => {
-    const preferences = await Preference.findOne({ _id: "6629c125c630f6b78354b44f"});
+    const preferences = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee"});
     res.render('settings', {preferences});
 }
 
 exports.setEmailPrefs = async(req, res, next) => {
+    if(req.body.pref1 == "on"){
+        var onePref = true;
+    }
+    else{
+        var onePref = false;
+    }
+    
     if(req.body.pref2 == "on"){
         var twoPref = true;
     }
@@ -158,21 +165,30 @@ exports.setEmailPrefs = async(req, res, next) => {
         var sevenPref = false;
     }
     
+    if(req.body.pref8 == "on"){
+        var eightPref = true;
+    }
+    else{
+        var eightPref = false;
+    }
+    
     var updates = {
+        pref1: onePref,
         pref2: twoPref,
         pref3: threePref,
         pref4: fourPref,
         pref5: fivePref,
         pref6: sixPref,
-        pref7: sevenPref
+        pref7: sevenPref,
+        pref8: eightPref
     }
             
     const settings = await Preference.findOneAndUpdate(
-    { _id: "6629c125c630f6b78354b44f" },
+    { _id: "664e155a2b470fe75a70bdee" },
     { $set: updates },
     { new: true, runValidators: true, context: 'query' }
   );
-  const preferences = await Preference.findOne({ _id: "6629c125c630f6b78354b44f"});
+  const preferences = await Preference.findOne({ _id: "664e155a2b470fe75a70bdee"});
   next();
 }
 
