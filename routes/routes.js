@@ -27,7 +27,9 @@ router.get(`/favorites/:id`, reviewerController.favorites);
 router.get('/login', reviewerController.loginForm);
 router.post('/login', authController.login);
 
-//router.post('/account/forgot', authController.forgot);
+router.post('/account/forgot', authController.forgot);
+router.get(`/account/reset/:token`, authController.reset);
+router.post(`/account/reset/:token`, authController.update);
 
 router.get('/register', reviewerController.registerForm);
 // 1. Validate the registration data
