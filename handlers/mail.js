@@ -12,6 +12,14 @@ const transport = nodemailer.createTransport({
     pass: process.env.MAIL_PASS
   }
 });
+//var transport = nodemailer.createTransport({
+//  host: "live.smtp.mailtrap.io",
+//  port: 587,
+//  auth: {
+//    user: "api",
+//    pass: "********727d"
+//  }
+//});
 
 const generateHTML = (filename, options = {}) => {
   const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
